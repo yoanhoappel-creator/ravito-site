@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yoanhoappel-creator.github.io/ravito-site/sitemap.xml
