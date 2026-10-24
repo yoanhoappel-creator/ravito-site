@@ -630,12 +630,6 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
   });
 
   /* ---------- liens WhatsApp génériques ---------- */
-  function openExternal(url){
-    var w = null;
-    try { w = window.open(url, "_blank"); } catch (err) {}
-    if (!w) { window.location.assign(url); }
-    else { try { w.opener = null; } catch (err) {} }
-  }
   function waUrl(text){
     return "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(text);
   }
@@ -644,7 +638,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
     (function(el){
       el.addEventListener("click", function(e){
         e.preventDefault();
-        openExternal(waUrl(el.getAttribute("data-msg") || "Bonjour RAVITO"));
+        window.location.assign(waUrl(el.getAttribute("data-msg") || "Bonjour RAVITO"));
       });
     })(links[i]);
   }
@@ -713,7 +707,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
     e.preventDefault();
     if (!SITE_URL) { flashLabel(shareWa, "Site non publié"); return; }
     var msg = "Découvre RAVITO, livraison de repas à Port-Gentil : " + SITE_URL;
-    openExternal("https://wa.me/?text=" + encodeURIComponent(msg));
+    window.location.assign("https://wa.me/?text=" + encodeURIComponent(msg));
   });
 
   /* ---------- mémorisation locale (confort, par navigateur) ---------- */
@@ -811,7 +805,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
     }
     $("err").textContent = "";
     saveMe();
-    openExternal(waUrl(buildMessage()));
+    window.location.assign(waUrl(buildMessage()));
   });
 
   /* ---------- pré-sélection depuis les cartes de formule ---------- */
