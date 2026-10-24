@@ -1,0 +1,18 @@
+{
+  "id": "./",
+  "name": "RAVITO — Livraison de repas",
+  "short_name": "RAVITO",
+  "description": "Commande de repas et livraison à Port-Gentil.",
+  "lang": "fr-GA",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#08080A",
+  "theme_color": "#08080A",
+  "icons": [
+    { "src": "./ravito-public-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./ravito-public-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./ravito-public-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RAVITO Port-Gentil — Livraison de repas à domicile</title>
 <meta name="description" content="RAVITO livre des repas à Port-Gentil, Gabon. Commande à la carte ou abonnement repas à la semaine et au mois, livrés au bureau ou à domicile via WhatsApp.">
+<meta name="theme-color" content="#08080A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RAVITO">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./ravito-public-192.png">
 <link rel="canonical" href="https://yoanhoappel-creator.github.io/ravito-site/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="website">
@@ -266,7 +272,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
       <a href="#partenaires">Partenaires</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a href="#commander" class="btn btn-p btn-s navcta">Commander</a>
+    <a href="https://yoanhoappel-creator.github.io/ravito-site/" class="btn btn-p btn-s navcta app-install-link">Installer l’application</a>
   </div>
 </header>
 
@@ -579,6 +585,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
     </div>
     <div class="fbot">
       <span>&copy; <span id="year"></span> RAVITO — Tous droits réservés.</span>
+      <a href="https://yoanhoappel-creator.github.io/ravito-site/" class="btn btn-o btn-s app-install-link">Installer l’application client</a>
       <span>Votre commande. Notre priorité.</span>
     </div>
   </div>
@@ -607,6 +614,21 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
 
   $("year").textContent = new Date().getFullYear();
 
+  /* ---------- installation de l’application client ---------- */
+  var deferredInstallPrompt = null;
+  window.addEventListener("beforeinstallprompt", function(event){
+    event.preventDefault();
+    deferredInstallPrompt = event;
+  });
+  document.querySelectorAll(".app-install-link").forEach(function(link){
+    link.addEventListener("click", function(event){
+      if (!deferredInstallPrompt) return;
+      event.preventDefault();
+      deferredInstallPrompt.prompt();
+      deferredInstallPrompt.userChoice.finally(function(){ deferredInstallPrompt = null; });
+    });
+  });
+
   /* ---------- liens WhatsApp génériques ---------- */
   function waUrl(text){
     return "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(text);
@@ -616,7 +638,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
     (function(el){
       el.addEventListener("click", function(e){
         e.preventDefault();
-        window.open(waUrl(el.getAttribute("data-msg") || "Bonjour RAVITO"), "_blank");
+        window.location.assign(waUrl(el.getAttribute("data-msg") || "Bonjour RAVITO"));
       });
     })(links[i]);
   }
@@ -627,7 +649,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
   if (shareUrlEl) shareUrlEl.textContent = SITE_URL || "Adresse publique disponible après publication";
   var qrEl = $("share-qr");
   if (qrEl && /^https?:$/.test(window.location.protocol)) {
-      qrEl.src = "https://api.qrserver.com/v1/create-qr-code/?size=168x168&data=" + encodeURIComponent(SITE_URL);
+      qrEl.src = "./qr-ravito.png";
     qrEl.hidden = false;
   } else if (qrEl) {
     var shareNote = document.querySelector(".share-note");
@@ -685,7 +707,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
     e.preventDefault();
     if (!SITE_URL) { flashLabel(shareWa, "Site non publié"); return; }
     var msg = "Découvre RAVITO, livraison de repas à Port-Gentil : " + SITE_URL;
-    window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank");
+    window.location.assign("https://wa.me/?text=" + encodeURIComponent(msg));
   });
 
   /* ---------- mémorisation locale (confort, par navigateur) ---------- */
@@ -783,7 +805,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
     }
     $("err").textContent = "";
     saveMe();
-    window.open(waUrl(buildMessage()), "_blank");
+    window.location.assign(waUrl(buildMessage()));
   });
 
   /* ---------- pré-sélection depuis les cartes de formule ---------- */
@@ -824,6 +846,13 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
   loadMe();
   render();
 })();
+</script>
+<script>
+if ("serviceWorker" in navigator && /^https?:$/.test(window.location.protocol)) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./service-worker.js").catch(function () {});
+  }, { once: true });
+}
 </script>
 </body>
 </html>
