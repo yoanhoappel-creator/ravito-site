@@ -1,0 +1,19 @@
+# Réveille chaque matin le serveur RAVITO (gratuit, il s'endort sans activité) pour envoyer
+# la notification « Tu manges quoi aujourd'hui ? » aux abonnés. Aucun secret : le serveur n'envoie
+# qu'une seule notification par abonné et par jour, quel que soit le nombre d'appels.
+name: RAVITO - notification du matin
+on:
+  schedule:
+    - cron: "30 8 * * 1-5"     # 09h30 à Port-Gentil, du lundi au vendredi
+    - cron: "45 9 * * 1-5"     # 10h45 : second essai si le premier a échoué
+  workflow_dispatch: {}
+permissions: {}
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Appeler le serveur RAVITO
+        run: |
+          curl -fsS -X POST --max-time 120 --retry 3 --retry-delay 20 --retry-all-errors \
+            https://ravito-staff-app.onrender.com/api/cron/suggestions

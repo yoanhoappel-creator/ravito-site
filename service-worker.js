@@ -1,6 +1,6 @@
-const CACHE = "ravito-public-shell-v3";
+const CACHE = "ravito-public-shell-v4";
 const base = self.registration.scope;
-const shell = ["./", "./index.html", "./manifest.webmanifest", "./ravito-assistant.js", "./qr-ravito.png", "./ravito-public-192.png", "./ravito-public-512.png"];
+const shell = ["./", "./index.html", "./manifest.webmanifest", "./ravito-assistant.js", "./ravito-guide.js", "./qr-ravito.png", "./ravito-public-192.png", "./ravito-public-512.png"];
 self.addEventListener("install", (event) => event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(shell.map((item) => new URL(item, base).href))).then(() => self.skipWaiting())));
 self.addEventListener("activate", (event) => event.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((key) => key.startsWith("ravito-public-shell-") && key !== CACHE).map((key) => caches.delete(key)))).then(() => self.clients.claim())));
 self.addEventListener("fetch", (event) => {
