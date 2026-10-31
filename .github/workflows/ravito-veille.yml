@@ -1,6 +1,8 @@
-# Veille d'Hermès et service réveillé en journée (gratuit : le serveur gratuit s'endort sans activité,
-# et le premier client attendrait 30 à 60 secondes). Aucun secret. Si Hermès est en sommeil, le serveur ne fait rien d'autre
-# que répondre : l'appel est sans effet. Pour arrêter : désactiver ce workflow dans l'onglet Actions de GitHub.
+# Veille d'Hermès : DORMANTE par défaut. Elle ne fait rien (aucun appel, le serveur gratuit reste libre de dormir)
+# tant que la variable de dépôt HERMES_ACTIF n'est pas égale à « true »
+# (GitHub → Settings → Secrets and variables → Actions → Variables). Aucun secret.
+# Une fois activée, elle appelle le serveur toutes les 10 minutes en journée : cela fait tourner Hermès (s'il est aussi activé
+# dans Réglages) et empêche le serveur gratuit de s'endormir. Pour arrêter : supprimer la variable ou la mettre à « false ».
 name: RAVITO - veille en journée
 on:
   schedule:
@@ -12,6 +14,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   veille:
+    if: ${{ vars.HERMES_ACTIF == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
