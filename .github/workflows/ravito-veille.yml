@@ -1,0 +1,21 @@
+# Veille d'Hermès et service réveillé en journée (gratuit : le serveur gratuit s'endort sans activité,
+# et le premier client attendrait 30 à 60 secondes). Aucun secret. Si Hermès est en sommeil, le serveur ne fait rien d'autre
+# que répondre : l'appel est sans effet. Pour arrêter : désactiver ce workflow dans l'onglet Actions de GitHub.
+name: RAVITO - veille en journée
+on:
+  schedule:
+    - cron: "*/10 5-20 * * *"   # toutes les 10 minutes, de 06h à 21h à Port-Gentil (UTC+1)
+  workflow_dispatch: {}
+permissions: {}
+concurrency:
+  group: ravito-veille
+  cancel-in-progress: true
+jobs:
+  veille:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Appeler le serveur RAVITO
+        run: |
+          curl -fsS -X POST --max-time 90 --retry 2 --retry-delay 15 --retry-all-errors \
+            https://ravito-staff-app.onrender.com/api/cron/hermes
