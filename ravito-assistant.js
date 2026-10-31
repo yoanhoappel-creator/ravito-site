@@ -10,6 +10,7 @@
   var history = [];
   var busy = false;
   var flow = null;          // commande guidée en cours
+  var suggestions = null, paiement = null;
   var catalog = null;       // restaurants du jour (facultatif)
   var catalogTried = false;
 
@@ -41,8 +42,21 @@
 @media(max-width:600px){.rva-panel{left:0;right:0;bottom:0;width:100%;height:78vh;border-radius:20px 20px 0 0}}";
 
   // ---------- réponses pré-écrites (mode hors-ligne = V1) ----------
+  var PAY_RULE = "Pour tout dépôt, envoie la capture d'écran du paiement sur WhatsApp à l'équipe RAVITO : c'est elle qui valide ton abonnement ou ta commande.";
+  function payText() {
+    var a = paiement && paiement.airtelMoney, m = paiement && paiement.mobiCash;
+    return "On paie uniquement par Airtel Money" + (a ? " (" + a + ")" : "") + " ou MobiCash" + (m ? " (" + m + ")" : "") + " : pas de carte bancaire et pas de paiement au restaurant. " + (a || m ? "" : "L'équipe te donne le numéro sur WhatsApp. ") + PAY_RULE;
+  }
+  function suggestReply() {
+    var p = suggestions && suggestions.populaires && suggestions.populaires[0], n = suggestions && suggestions.mieuxNotes && suggestions.mieuxNotes[0], parts = [];
+    if (p) parts.push("le plus commandé : " + p.nomPlat + " (" + p.restaurantNom + ")");
+    if (n) parts.push("le mieux noté : " + n.nomPlat + " (" + n.restaurantNom + ", " + String(n.note).replace(".", ",") + "/5)");
+    return parts.length ? "Pas de souci, je t'aide à choisir ! 😊 Aujourd'hui, " + parts.join(" ; ") + ". Je te guide pour commander ?" : "Pas de souci ! Je n'ai pas encore assez de commandes pour te citer les plats stars : touche « Commander avec l'assistant » et je te montre les plats du jour.";
+  }
   function offlineReply(text) {
     var t = text.toLowerCase();
+    if (/paie|payer|paiement|airtel|mobi|moov|carte bancaire|esp[eè]ce|d[eé]p[oô]t|capture/.test(t)) return payText();
+    if (/sais pas|sait pas|sugg[eè]re|conseil|id[eé]e|populaire|quoi (manger|commander)|h[eé]site/.test(t)) return suggestReply();
     if (/abonn|formule|semaine|mois|basique|premium|interm/.test(t)) return "3 formules, 5 repas du lundi au vendredi, livraison incluse : Basique 10 000 FCFA/sem (40 000/mois), Intermédiaire 14 500 FCFA/sem (55 000/mois, eau incluse), Premium 23 000 FCFA/sem (88 000/mois, eau et jus inclus). Laquelle te tente ?";
     if (/prix|tarif|co[uû]t|livraison|combien/.test(t)) return "Sans abonnement : prix du plat + 1 000 FCFA de livraison. Avec un abonnement, la livraison est incluse ! 😉";
     if (/bonjour|salut|hello|coucou|bonsoir/.test(t)) return "Salut ! 👋 Je peux préparer ta commande étape par étape, ou répondre à tes questions.";
@@ -67,7 +81,7 @@
     if (catalogTried) return; catalogTried = true;
     try {
       fetch(CATALOG).then(function (r) { if (!r.ok) throw new Error("http"); return r.json(); })
-        .then(function (d) { if (d && d.restaurants) catalog = d.restaurants.filter(function (r) { return r.menu && r.menu.length; }); })
+        .then(function (d) { if (d && d.restaurants) catalog = d.restaurants.filter(function (r) { return r.menu && r.menu.length; }); if (d) { suggestions = d.suggestions || null; paiement = d.paiement || null; } })
         .catch(function () { catalog = null; });
     } catch (e) { catalog = null; }
   }
@@ -107,7 +121,9 @@
       return [
         btn("Commander avec l'assistant", function () { say("Commander avec l'assistant"); startFlow(); }, "primary"),
         btn("Voir les formules", function () { ask("Voir les formules"); }),
+        btn("Je ne sais pas quoi commander", function () { ask("Je ne sais pas quoi commander"); }),
         btn("Prix de la livraison", function () { ask("Prix de la livraison"); }),
+        btn("Comment payer", function () { ask("Comment payer ?"); }),
         btn("Revoir le guide", function () { say("Revoir le guide"); close(); if (window.RavitoGuide) setTimeout(window.RavitoGuide.restart, 250); })
       ];
     }
@@ -221,7 +237,7 @@
       L.push("Nom : " + flow.nom, "Téléphone : " + flow.tel, "Livraison : " + flow.adresse);
       if (flow.heure) L.push("Heure souhaitée : " + flow.heure);
       L.push(noteText() ? "Demandes : " + noteText() : "Aucune demande spéciale");
-      add("bot", "Voilà ton récapitulatif :\n" + L.join("\n") + "\nJe remplis le formulaire du site et j'ouvre WhatsApp avec ton message prêt. On y va ?", [
+      add("bot", "Voilà ton récapitulatif :\n" + L.join("\n") + "\nJe remplis le formulaire du site et j'ouvre WhatsApp avec ton message prêt. Paiement : Airtel Money ou MobiCash uniquement, et n'oublie pas d'envoyer la capture d'écran du dépôt sur WhatsApp pour valider. On y va ?", [
         btn("Envoyer sur WhatsApp", function () { say("Envoyer sur WhatsApp"); submitFlow(); }, "wa"),
         btn("Modifier mes demandes", function () { say("Modifier mes demandes"); askRequests(); }),
         cancelBtn()]);
@@ -236,7 +252,7 @@
       flow = null;
       if (sendBtn) sendBtn.click();
       else window.location.assign(waLink("Bonjour RAVITO, " + (f.mode === "abo" ? "je souhaite m'abonner : " + f.plan : "je souhaite commander : " + platsText()) + "\nNom : " + f.nom + "\nTéléphone : " + f.tel + "\nLivraison : " + f.adresse));
-      add("bot", "Je t'ouvre WhatsApp 📲 Si rien ne s'ouvre, le formulaire plus bas est rempli : il te suffit d'appuyer sur « Envoyer sur WhatsApp ».", mainOptions());
+      add("bot", "Je t'ouvre WhatsApp 📲 Si rien ne s'ouvre, le formulaire plus bas est rempli : il te suffit d'appuyer sur « Envoyer sur WhatsApp ». " + PAY_RULE, mainOptions());
     }
 
     // Réponse écrite pendant la commande guidée
