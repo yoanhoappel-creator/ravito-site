@@ -44,8 +44,8 @@
   // ---------- réponses pré-écrites (mode hors-ligne = V1) ----------
   var PAY_RULE = "Pour tout dépôt, envoie la capture d'écran du paiement sur WhatsApp à l'équipe RAVITO : c'est elle qui valide ton abonnement ou ta commande.";
   function payText() {
-    var a = paiement && paiement.airtelMoney, m = paiement && paiement.mobiCash;
-    return "On paie uniquement par Airtel Money" + (a ? " (" + a + ")" : "") + " ou MobiCash" + (m ? " (" + m + ")" : "") + " : pas de carte bancaire et pas de paiement au restaurant. " + (a || m ? "" : "L'équipe te donne le numéro sur WhatsApp. ") + PAY_RULE;
+    var a = paiement && paiement.airtelMoney, m = paiement && paiement.moovMoney;
+    return "On paie uniquement par Airtel Money" + (a ? " (" + a + ")" : "") + " ou Moov Money" + (m ? " (" + m + ")" : "") + " : pas de carte bancaire et pas de paiement au restaurant. " + (a || m ? "" : "L'équipe te donne le numéro sur WhatsApp. ") + PAY_RULE;
   }
   function suggestReply() {
     var p = suggestions && suggestions.populaires && suggestions.populaires[0], n = suggestions && suggestions.mieuxNotes && suggestions.mieuxNotes[0], parts = [];
@@ -237,7 +237,7 @@
       L.push("Nom : " + flow.nom, "Téléphone : " + flow.tel, "Livraison : " + flow.adresse);
       if (flow.heure) L.push("Heure souhaitée : " + flow.heure);
       L.push(noteText() ? "Demandes : " + noteText() : "Aucune demande spéciale");
-      add("bot", "Voilà ton récapitulatif :\n" + L.join("\n") + "\nJe remplis le formulaire du site et j'ouvre WhatsApp avec ton message prêt. Paiement : Airtel Money ou MobiCash uniquement, et n'oublie pas d'envoyer la capture d'écran du dépôt sur WhatsApp pour valider. On y va ?", [
+      add("bot", "Voilà ton récapitulatif :\n" + L.join("\n") + "\nJe remplis le formulaire du site et j'ouvre WhatsApp avec ton message prêt. Paiement : Airtel Money ou Moov Money uniquement, et n'oublie pas d'envoyer la capture d'écran du dépôt sur WhatsApp pour valider. On y va ?", [
         btn("Envoyer sur WhatsApp", function () { say("Envoyer sur WhatsApp"); submitFlow(); }, "wa"),
         btn("Modifier mes demandes", function () { say("Modifier mes demandes"); askRequests(); }),
         cancelBtn()]);
