@@ -483,6 +483,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
         <span id="send-label">Envoyer sur WhatsApp</span>
       </button>
       <div class="err" id="err"></div>
+      <p class="hint" id="wa-fallback" style="display:none"><a href="#" id="wa-fallback-link" style="color:var(--y);font-weight:700">Un souci d'ouverture ? Commander plutôt par WhatsApp</a></p>
       <p class="hint" id="send-hint">Ton message s'ouvre dans WhatsApp — rien n'est envoyé sans ta confirmation.</p>
     </div>
   </div>
@@ -768,6 +769,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
     $("mode-help").style.display = ""; $("mode-help").textContent = HELP[m];
     $("recap-box").style.display = (m === "abo") ? "" : "none";
     $("send-label").textContent = LABEL[m];
+    $("wa-fallback").style.display = (m === "carte") ? "" : "none";
     $("send-hint").textContent = (m === "abo") ? "Ton message s'ouvre dans WhatsApp — rien n'est envoyé sans ta confirmation." : "Tu seras redirigé vers l'application RAVITO.";
     render();
   }
@@ -808,6 +810,20 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
     el.addEventListener("input", render);
     el.addEventListener("change", render);
   }
+
+  function carteMessage(){
+    var L = ["Bonjour RAVITO, je souhaite commander sans abonnement (je choisirai mon plat avec vous)."];
+    L.push("Nom : " + ($("nom").value.trim() || "(à préciser)"));
+    L.push("Téléphone : " + ($("tel").value.trim() || "(à préciser)"));
+    L.push("Livraison : " + ($("adresse").value.trim() || "(à préciser)"));
+    if ($("heure").value.trim()) L.push("Heure souhaitée : " + $("heure").value.trim());
+    if ($("note").value.trim()) L.push("Précision : " + $("note").value.trim());
+    return L.join("\n");
+  }
+  $("wa-fallback-link").addEventListener("click", function(e){ e.preventDefault(); saveMe(); window.location.assign(waUrl(carteMessage())); });
+
+  /* Réveille l'application dès l'ouverture du site (l'hébergement gratuit s'endort) : elle sera prête au clic. */
+  try { fetch(APP + "api/health", { mode: "no-cors", cache: "no-store" }).catch(function(){}); } catch(e){}
 
   function b64url(str){
     var bytes = new TextEncoder().encode(str), bin = "";
