@@ -431,7 +431,9 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
       <div class="seg" id="seg">
         <button type="button" class="on" data-mode="abo">Je m'abonne</button>
         <button type="button" data-mode="carte">Commande à l'unité</button>
+        <button type="button" data-mode="sub">J'ai déjà un abonnement</button>
       </div>
+      <p class="hint" id="mode-help" style="display:none;margin:0 0 14px"></p>
 
       <div class="row2">
         <div class="field">
@@ -456,10 +458,6 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
         </select>
       </div>
 
-      <div class="field" id="f-plat" style="display:none">
-        <label for="plat">Ce que tu veux commander</label>
-        <textarea id="plat" placeholder="Ex. 1 poisson braisé + 1 jus, chez Le Grill du Port"></textarea>
-      </div>
 
       <div class="row2">
         <div class="field">
@@ -477,15 +475,15 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
         <input id="note" type="text" placeholder="Sans piment, bien cuit, appeler en arrivant…">
       </div>
 
-      <label style="display:block;font-size:11.5px;font-weight:700;letter-spacing:1.2px;color:var(--dim);text-transform:uppercase;margin-bottom:7px">Aperçu du message</label>
-      <div class="recap" id="recap"></div>
+      <div id="recap-box"><label style="display:block;font-size:11.5px;font-weight:700;letter-spacing:1.2px;color:var(--dim);text-transform:uppercase;margin-bottom:7px">Aperçu du message</label>
+      <div class="recap" id="recap"></div></div>
 
       <button class="btn btn-g" id="send" style="width:100%">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1"><path d="M4 20l1.3-3.9A8 8 0 1 1 9 18.6L4 20Z"/></svg>
-        Envoyer sur WhatsApp
+        <span id="send-label">Envoyer sur WhatsApp</span>
       </button>
       <div class="err" id="err"></div>
-      <p class="hint">Ton message s'ouvre dans WhatsApp — rien n'est envoyé sans ta confirmation.</p>
+      <p class="hint" id="send-hint">Ton message s'ouvre dans WhatsApp — rien n'est envoyé sans ta confirmation.</p>
     </div>
   </div>
 </section>
@@ -751,6 +749,14 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
   /* ---------- formulaire ---------- */
   var mode = "abo";
 
+  var APP = "https://ravito-staff-app.onrender.com/";
+  var HELP = {
+    abo: "Choisis ta formule et envoie ta demande : RAVITO te répond sur WhatsApp pour activer ton abonnement.",
+    carte: "Pour commander, tu choisis ton plat sur la carte avec les photos. Tes informations ci-dessous seront déjà remplies.",
+    sub: "Tu as déjà un abonnement ? Ouvre ton espace abonné pour commander avec ton QR."
+  };
+  var LABEL = { abo: "Envoyer ma demande sur WhatsApp", carte: "Choisir mon plat sur la carte", sub: "Ouvrir mon espace abonné" };
+
   function setMode(m){
     mode = m;
     var btns = $("seg").getElementsByTagName("button");
@@ -759,7 +765,10 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
       else btns[i].className = "";
     }
     $("f-plan").style.display = (m === "abo") ? "" : "none";
-    $("f-plat").style.display = (m === "abo") ? "none" : "";
+    $("mode-help").style.display = ""; $("mode-help").textContent = HELP[m];
+    $("recap-box").style.display = (m === "abo") ? "" : "none";
+    $("send-label").textContent = LABEL[m];
+    $("send-hint").textContent = (m === "abo") ? "Ton message s'ouvre dans WhatsApp — rien n'est envoyé sans ta confirmation." : "Tu seras redirigé vers l'application RAVITO.";
     render();
   }
 
@@ -777,14 +786,8 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
     var heure = $("heure").value.trim();
     var note = $("note").value.trim();
     var L = [];
-    if (mode === "abo"){
-      L.push("Bonjour RAVITO, je souhaite m'abonner.");
-      L.push("Formule : " + $("plan").value);
-    } else {
-      L.push("Bonjour RAVITO, je souhaite commander sans abonnement.");
-      var plat = $("plat").value.trim();
-      L.push("Commande : " + (plat || "(à préciser)"));
-    }
+    L.push("Bonjour RAVITO, je souhaite m'abonner.");
+    L.push("Formule : " + $("plan").value);
     L.push("Nom : " + (nom || "(à préciser)"));
     L.push("Téléphone : " + (tel || "(à préciser)"));
     L.push("Livraison : " + (adresse || "(à préciser)"));
@@ -799,19 +802,25 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
       .replace(/\n/g,"<br>");
   }
 
-  var watched = ["nom","tel","plan","plat","adresse","heure","note"];
+  var watched = ["nom","tel","plan","adresse","heure","note"];
   for (var k=0;k<watched.length;k++){
     var el = $(watched[k]);
     el.addEventListener("input", render);
     el.addEventListener("change", render);
   }
 
+  function b64url(str){
+    var bytes = new TextEncoder().encode(str), bin = "";
+    for (var i=0;i<bytes.length;i++) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+  }
+
   $("send").addEventListener("click", function(){
+    if (mode === "sub"){ window.location.assign(APP + "#abo"); return; }
     var miss = [];
     if (!$("nom").value.trim()) miss.push("ton nom");
     if (!$("tel").value.trim()) miss.push("ton téléphone");
     if (!$("adresse").value.trim()) miss.push("le lieu de livraison");
-    if (mode === "carte" && !$("plat").value.trim()) miss.push("ce que tu veux commander");
 
     if (miss.length){
       $("err").textContent = "Complète d'abord : " + miss.join(", ") + ".";
@@ -819,6 +828,12 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
     }
     $("err").textContent = "";
     saveMe();
+    if (mode === "carte"){
+      /* Les informations voyagent dans la partie # de l'adresse : elles ne sont jamais envoyées à un serveur. */
+      var data = { nom: $("nom").value.trim(), tel: $("tel").value.trim(), adresse: $("adresse").value.trim(), heure: $("heure").value.trim(), note: $("note").value.trim() };
+      window.location.assign(APP + "#cmd=" + b64url(JSON.stringify(data)));
+      return;
+    }
     window.location.assign(waUrl(buildMessage()));
   });
 
@@ -858,7 +873,7 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
   }
 
   loadMe();
-  render();
+  setMode("abo");
 })();
 </script>
 <script>
