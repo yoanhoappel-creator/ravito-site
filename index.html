@@ -157,6 +157,16 @@ section{padding:64px 0;position:relative}
 .feats li.drink{color:var(--y);font-weight:600}
 @media(max-width:860px){.plans{grid-template-columns:1fr;gap:28px}}
 
+
+/* ---------- galerie de plats ---------- */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:34px auto 6px;max-width:980px}
+.gallery figure{margin:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:#0A0A0C;aspect-ratio:4/5}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.gallery figure:hover img{transform:scale(1.04)}
+.gallery-note{font-size:12.5px;color:var(--dim);text-align:center;margin-top:12px}
+@media(max-width:640px){.gallery{grid-template-columns:repeat(2,1fr);gap:10px}}
+@media (prefers-reduced-motion:reduce){.gallery img{transition:none}}
+
 /* ---------- à la carte ---------- */
 .carte{background:linear-gradient(135deg,#141119,#0C0C10);
   border:1px solid var(--line);border-radius:22px;padding:44px;
@@ -312,7 +322,18 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
       <div class="sec-kick">Nos restaurants partenaires</div>
       <h2 class="display">Les menus du jour</h2>
       <p>D&eacute;couvre les plats du jour de nos restaurants partenaires et commande en quelques clics.</p>
-      <a href="https://ravito-staff-app.onrender.com/" class="btn btn-p" style="margin-top:22px;padding:17px 34px;font-size:16.5px">Voir les menus du jour</a>
+    </div>
+    <div class="gallery">
+      <figure><img src="img/burger.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Burger gourmand avec bacon et fromage bleu"></figure>
+      <figure><img src="img/riz-poulet-plateau.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Plateau de riz au poulet grillé, olives et œufs durs"></figure>
+      <figure><img src="img/salade-composee.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Grande salade composée : avocat, tomate, concombre, maïs et œufs"></figure>
+      <figure><img src="img/riz-rouge-poulet-roti.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Riz rouge au poulet rôti, citron et carottes"></figure>
+      <figure><img src="img/poisson-braise-frites.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Poisson braisé avec frites et crudités"></figure>
+      <figure><img src="img/poulet-petits-pois.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Poulet rôti aux petits pois et pommes de terre, avec du pain"></figure>
+    </div>
+    <p class="gallery-note">Photos illustratives : les plats du jour varient selon les restaurants partenaires.</p>
+    <div style="text-align:center;margin-top:26px">
+      <a href="https://ravito-staff-app.onrender.com/" class="btn btn-p" style="padding:17px 34px;font-size:16.5px">Voir les menus du jour</a>
     </div>
   </div>
 </section>
