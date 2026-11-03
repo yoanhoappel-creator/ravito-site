@@ -158,14 +158,25 @@ section{padding:64px 0;position:relative}
 @media(max-width:860px){.plans{grid-template-columns:1fr;gap:28px}}
 
 
-/* ---------- galerie de plats ---------- */
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:34px auto 6px;max-width:980px}
-.gallery figure{margin:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:#0A0A0C;aspect-ratio:4/5}
-.gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
-.gallery figure:hover img{transform:scale(1.04)}
-.gallery-note{font-size:12.5px;color:var(--dim);text-align:center;margin-top:12px}
-@media(max-width:640px){.gallery{grid-template-columns:repeat(2,1fr);gap:10px}}
-@media (prefers-reduced-motion:reduce){.gallery img{transition:none}}
+/* ---------- ruban de plats (menus du jour) ---------- */
+#menus{position:relative;overflow:hidden}
+#menus .glow{width:560px;height:560px;left:50%;top:40px;transform:translateX(-50%);opacity:.12}
+.strip{position:relative;margin:38px 0 8px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.strip-track{display:flex;gap:16px;width:max-content;padding:14px 0 30px;animation:strip 52s linear infinite}
+.strip:hover .strip-track{animation-play-state:paused}
+.strip figure{position:relative;margin:0;flex:0 0 auto;width:210px;aspect-ratio:4/5;border-radius:22px;overflow:hidden;
+  box-shadow:0 14px 34px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.06)}
+.strip figure:nth-child(even){margin-top:26px;transform:rotate(1.6deg)}
+.strip figure:nth-child(odd){transform:rotate(-1.6deg)}
+.strip figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 58%,rgba(8,8,10,.55));pointer-events:none}
+.strip figure::before{content:"";position:absolute;left:14px;bottom:14px;width:34px;height:4px;border-radius:2px;background:var(--grad);z-index:2}
+.strip img{width:100%;height:100%;object-fit:cover}
+@keyframes strip{to{transform:translateX(calc(-50% - 8px))}}
+.strip-note{font-size:12.5px;color:var(--dim);text-align:center}
+@media(max-width:640px){.strip figure{width:158px;border-radius:18px}.strip-track{gap:12px}}
+@media (prefers-reduced-motion:reduce){.strip{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.strip-track{animation:none}}
 
 /* ---------- à la carte ---------- */
 .carte{background:linear-gradient(135deg,#141119,#0C0C10);
@@ -317,21 +328,30 @@ footer{background:#050506;border-top:1px solid var(--line);padding:52px 0 30px;m
 
 <!-- ============ MENUS DU JOUR ============ -->
 <section id="menus">
+  <div class="glow"></div>
   <div class="wrap">
     <div class="sec-head" style="margin-bottom:0">
       <div class="sec-kick">Nos restaurants partenaires</div>
       <h2 class="display">Les menus du jour</h2>
       <p>D&eacute;couvre les plats du jour de nos restaurants partenaires et commande en quelques clics.</p>
     </div>
-    <div class="gallery">
-      <figure><img src="img/burger.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Burger gourmand avec bacon et fromage bleu"></figure>
-      <figure><img src="img/riz-poulet-plateau.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Plateau de riz au poulet grillé, olives et œufs durs"></figure>
-      <figure><img src="img/salade-composee.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Grande salade composée : avocat, tomate, concombre, maïs et œufs"></figure>
-      <figure><img src="img/riz-rouge-poulet-roti.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Riz rouge au poulet rôti, citron et carottes"></figure>
-      <figure><img src="img/poisson-braise-frites.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Poisson braisé avec frites et crudités"></figure>
-      <figure><img src="img/poulet-petits-pois.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Poulet rôti aux petits pois et pommes de terre, avec du pain"></figure>
+    <div class="strip" aria-label="Exemples de plats">
+      <div class="strip-track">
+        <figure><img src="img/burger.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Burger gourmand avec bacon et fromage bleu"></figure>
+        <figure><img src="img/riz-poulet-plateau.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Plateau de riz au poulet grillé, olives et œufs durs"></figure>
+        <figure><img src="img/salade-composee.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Grande salade composée : avocat, tomate, concombre, maïs et œufs"></figure>
+        <figure><img src="img/riz-rouge-poulet-roti.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Riz rouge au poulet rôti, citron et carottes"></figure>
+        <figure><img src="img/poisson-braise-frites.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Poisson braisé avec frites et crudités"></figure>
+        <figure><img src="img/poulet-petits-pois.jpg" width="600" height="750" loading="lazy" decoding="async" alt="Poulet rôti aux petits pois et pommes de terre, avec du pain"></figure>
+        <figure aria-hidden="true"><img src="img/burger.jpg" width="600" height="750" loading="lazy" alt="" decoding="async"></figure>
+        <figure aria-hidden="true"><img src="img/riz-poulet-plateau.jpg" width="600" height="750" loading="lazy" alt="" decoding="async"></figure>
+        <figure aria-hidden="true"><img src="img/salade-composee.jpg" width="600" height="750" loading="lazy" alt="" decoding="async"></figure>
+        <figure aria-hidden="true"><img src="img/riz-rouge-poulet-roti.jpg" width="600" height="750" loading="lazy" alt="" decoding="async"></figure>
+        <figure aria-hidden="true"><img src="img/poisson-braise-frites.jpg" width="600" height="750" loading="lazy" alt="" decoding="async"></figure>
+        <figure aria-hidden="true"><img src="img/poulet-petits-pois.jpg" width="600" height="750" loading="lazy" alt="" decoding="async"></figure>
+      </div>
     </div>
-    <p class="gallery-note">Photos illustratives : les plats du jour varient selon les restaurants partenaires.</p>
+    <p class="strip-note">Photos illustratives : les plats du jour varient selon les restaurants partenaires.</p>
     <div style="text-align:center;margin-top:26px">
       <a href="https://ravito-staff-app.onrender.com/" class="btn btn-p" style="padding:17px 34px;font-size:16.5px">Voir les menus du jour</a>
     </div>
