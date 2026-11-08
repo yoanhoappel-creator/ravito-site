@@ -1291,7 +1291,7 @@ if ("serviceWorker" in navigator && /^https?:$/.test(window.location.protocol)) 
   }
 
 
-  /* bandeau : les tarifs des formules défilent toutes les 3 s */
+  /* bandeau : les tarifs des formules défilent toutes les 5 s */
   (function(){
     var box = $("#factRot"); if (!box) return;
     var WATER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/></svg>';
@@ -1325,7 +1325,7 @@ if ("serviceWorker" in navigator && /^https?:$/.test(window.location.protocol)) 
       box.classList.add("swap");
       setTimeout(function(){ show((i + 1) % data.length); box.classList.remove("swap"); }, 350);
     }
-    function start(){ if (!timer) timer = setInterval(next, 3000); }
+    function start(){ if (!timer) timer = setInterval(next, 5200); }
     function stop(){ clearInterval(timer); timer = null; }
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function(en){ en[0].isIntersecting ? setTimeout(start, 1800) : stop(); }, { threshold: 0.4 }).observe(box);
