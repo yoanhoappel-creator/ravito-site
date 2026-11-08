@@ -430,6 +430,46 @@ header.scrolled .nav{height:56px}
 .plan.gold .btn-p{background:linear-gradient(180deg,#2a2112,#0e0a04);color:#F6DD7B;box-shadow:0 10px 26px rgba(90,60,0,.45),inset 0 1px 0 rgba(255,230,150,.3)}
 @media (prefers-reduced-motion:reduce){.plan.gold::before{animation:none}}
 
+/* Basique : argent brossé · Intermédiaire : or ambré — mêmes reflets que Premium */
+.plan.silver,.plan.feat{overflow:visible}
+.plan.silver::before,.plan.feat::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;
+  background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.20) 50%,rgba(255,255,255,0) 65%);
+  background-size:300% 100%;background-position:90% 0;animation:sheenbg 6.4s ease-in-out infinite .5s}
+.plan.feat::before{background-image:linear-gradient(105deg,rgba(255,236,170,0) 35%,rgba(255,226,140,.26) 50%,rgba(255,236,170,0) 65%);animation-delay:2.7s}
+@keyframes sheenbg{0%{background-position:90% 0}42%,100%{background-position:10% 0}}
+
+.plan.silver{border:1.5px solid transparent;
+  background:
+   repeating-linear-gradient(100deg,rgba(255,255,255,.035) 0 2px,rgba(255,255,255,0) 2px 7px) padding-box,
+   radial-gradient(90% 55% at 15% 0%,rgba(255,255,255,.16),rgba(255,255,255,0) 60%) padding-box,
+   linear-gradient(145deg,#26272e 0%,#16171c 42%,#22232a 68%,#121317 100%) padding-box,
+   linear-gradient(135deg,#F2F3F7,#7B7F8C 28%,#F7F8FB 50%,#8A8E9B 72%,#DADCE3) border-box;
+  box-shadow:0 24px 60px rgba(190,196,214,.10),inset 0 1px 0 rgba(255,255,255,.32),inset 0 -30px 60px rgba(0,0,0,.35)}
+.plan.silver:hover{border-color:transparent;box-shadow:0 30px 80px rgba(205,210,228,.20),inset 0 1px 0 rgba(255,255,255,.45),inset 0 -30px 60px rgba(0,0,0,.35)}
+.plan.silver::after{background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.18),rgba(255,255,255,0) 62%)!important}
+.plan.silver h3,.plan.silver .price{background:linear-gradient(100deg,#FFFFFF 0%,#D5D8E1 28%,#A6AAB7 50%,#F1F2F6 74%,#D0D3DC 100%);
+  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:metaltext 7s linear infinite}
+.plan.silver .price small{-webkit-text-fill-color:#A5A8B4}
+.plan.silver .feats li::before{background:rgba(220,224,235,.16)}
+.plan.silver .feats li::after{border-color:#E4E6EE}
+.plan.silver .btn-p{background:linear-gradient(180deg,#F7F8FB,#AEB2BF);color:#101114;box-shadow:0 10px 26px rgba(190,196,214,.22),inset 0 1px 0 #fff}
+
+.plan.feat{
+  background:
+   repeating-linear-gradient(100deg,rgba(255,226,140,.04) 0 2px,rgba(255,226,140,0) 2px 7px) padding-box,
+   radial-gradient(90% 60% at 85% 0%,rgba(255,196,0,.22),rgba(255,196,0,0) 60%) padding-box,
+   linear-gradient(150deg,#2a1e0c 0%,#17120c 44%,#241a0b 70%,#110d07 100%) padding-box,
+   linear-gradient(135deg,#FFE9A0,#FF7A00 30%,#FFC400 52%,#FF8A00 74%,#FFE9A0) border-box;
+  box-shadow:0 30px 80px rgba(255,138,0,.22),inset 0 1px 0 rgba(255,236,170,.38),inset 0 -30px 60px rgba(0,0,0,.3)}
+.plan.feat:hover{box-shadow:0 38px 100px rgba(255,150,0,.36),inset 0 1px 0 rgba(255,236,170,.5),inset 0 -30px 60px rgba(0,0,0,.3)}
+.plan.feat::after{background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(255,214,120,.24),rgba(255,214,120,0) 62%)!important}
+.plan.feat h3,.plan.feat .price{background:linear-gradient(100deg,#FFF1B8 0%,#FFC400 30%,#FF9A1F 52%,#FFE9A0 76%,#F2B93B 100%);
+  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:metaltext 6s linear infinite}
+.plan.feat .price small{-webkit-text-fill-color:#C9A862}
+.plan.feat .price-m{color:#CDBE97}
+@keyframes metaltext{to{background-position:-220% 0}}
+@media (prefers-reduced-motion:reduce){.plan.silver::before,.plan.feat::before,.plan.silver h3,.plan.silver .price,.plan.feat h3,.plan.feat .price{animation:none}}
+
 /* le O de RAVITO en orange */
 .brand b i{color:#FF7A00!important}
 
@@ -649,7 +689,7 @@ footer .wrap{position:relative;z-index:1}
       <p>Cinq repas par semaine, livrés du lundi au vendredi. Plus tu montes en formule, plus le menu s'élargit — les boissons sont comprises dès l'Intermédiaire.</p>
     </div>
     <div class="plans">
-      <div class="plan">
+      <div class="plan silver">
         <h3>Basique</h3>
         <div class="desc">L'essentiel, chaque jour : riz, poulet, alloco et plats simples.</div>
         <div class="price">10 000 <small>FCFA/sem</small></div>
@@ -1325,7 +1365,7 @@ if ("serviceWorker" in navigator && /^https?:$/.test(window.location.protocol)) 
       box.classList.add("swap");
       setTimeout(function(){ show((i + 1) % data.length); box.classList.remove("swap"); }, 350);
     }
-    function start(){ if (!timer) timer = setInterval(next, 4000); }
+    function start(){ if (!timer) timer = setInterval(next, 5000); }
     function stop(){ clearInterval(timer); timer = null; }
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function(en){ en[0].isIntersecting ? setTimeout(start, 1800) : stop(); }, { threshold: 0.4 }).observe(box);
