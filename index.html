@@ -376,6 +376,49 @@ header.scrolled .nav{height:56px}
 .fact span{display:block;margin-top:8px;font-size:13px;color:var(--muted)}
 @media(max-width:760px){.facts-grid{grid-template-columns:1fr 1fr}.fact{padding:24px 12px}.fact:nth-child(3)::before{display:none}.fact:nth-child(n+3){border-top:1px solid var(--line)}}
 
+
+/* bandeau : tarifs qui défilent */
+.fact-rot{overflow:hidden}
+.fact .rot-name{display:block;font-style:normal;font-size:11.5px;font-weight:800;letter-spacing:2.2px;text-transform:uppercase;color:var(--y);margin-bottom:10px;transition:opacity .35s,transform .35s}
+.rot-line{transition:opacity .35s,transform .35s}
+.rot-desc{min-height:2.7em;transition:opacity .35s,transform .35s}
+.fact-rot.swap .rot-name,.fact-rot.swap .rot-line,.fact-rot.swap .rot-desc{opacity:0;transform:translateY(-10px)}
+.rot-dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.rot-dots i{width:6px;height:6px;border-radius:50%;background:#3a3a44;transition:all .3s}
+.rot-dots i.on{width:20px;border-radius:4px;background:var(--grad)}
+@media(max-width:760px){.rot-desc{min-height:4em}}
+
+/* Premium : carte or */
+.plan.gold{border:1.5px solid transparent;overflow:hidden;
+  background:
+   radial-gradient(120% 80% at 85% -10%,rgba(255,226,140,.20),rgba(255,226,140,0) 55%),
+   linear-gradient(135deg,#2e220a 0%,#17110a 40%,#271c08 64%,#0f0b05 100%) padding-box,
+  linear-gradient(135deg,#F9E7A0,#B8860B 28%,#FFF4C2 48%,#C9971C 68%,#F2D77A) border-box;
+  box-shadow:0 30px 80px rgba(212,160,23,.22),0 0 0 1px rgba(255,230,150,.06),inset 0 1px 0 rgba(255,244,194,.35),inset 0 -40px 80px rgba(0,0,0,.35)}
+.plan.gold:hover{border-color:transparent;box-shadow:0 36px 90px rgba(212,160,23,.34),inset 0 1px 0 rgba(255,244,194,.45)}
+.plan.gold::before{content:"";position:absolute;top:-60%;bottom:-60%;left:-60%;width:46%;pointer-events:none;z-index:2;
+  background:linear-gradient(100deg,rgba(255,244,194,0) 0%,rgba(255,244,194,.30) 50%,rgba(255,244,194,0) 100%);
+  transform:translateX(-120%) rotate(18deg);animation:goldsheen 5.5s ease-in-out infinite 1.2s}
+@keyframes goldsheen{0%{transform:translateX(-60%) rotate(18deg)}38%,100%{transform:translateX(520%) rotate(18deg)}}
+.plan.gold::after{background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(255,226,140,.22),rgba(255,226,140,0) 62%)!important;z-index:2}
+.plan.gold>*{position:relative;z-index:3}
+.plan.gold .gold-chip{position:absolute;right:24px;top:24px;width:50px;height:38px;border-radius:8px;z-index:3;
+  background:linear-gradient(135deg,#F9E7A0,#C9971C 45%,#FFF1B8 60%,#B8860B);box-shadow:inset 0 0 0 1px rgba(90,60,0,.55),0 2px 8px rgba(0,0,0,.4)}
+.plan.gold .gold-chip::before,.plan.gold .gold-chip::after{content:"";position:absolute;background:rgba(90,60,0,.55)}
+.plan.gold .gold-chip::before{left:0;right:0;top:50%;height:1px;box-shadow:0 -9px 0 rgba(90,60,0,.55),0 9px 0 rgba(90,60,0,.55)}
+.plan.gold .gold-chip::after{top:0;bottom:0;left:34%;width:1px;box-shadow:16px 0 0 rgba(90,60,0,.55)}
+.plan.gold .gold-kick{font-size:10px;font-weight:800;letter-spacing:2.6px;color:rgba(249,231,160,.7);margin:0 0 14px;padding-right:70px}
+.plan.gold h3,.plan.gold .price{background:linear-gradient(100deg,#FFF4C2 0%,#F2D77A 30%,#C9971C 55%,#FFF1B8 80%,#E6BC4B);
+  background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:goldtext 6s linear infinite}
+@keyframes goldtext{to{background-position:-200% 0}}
+.plan.gold .price small{-webkit-text-fill-color:#BFA567}
+.plan.gold .price-m{color:#C9B98E}.plan.gold .desc{color:#C9B98E}
+.plan.gold .feats li{color:#EDE3C6}
+.plan.gold .feats li::before{border-color:#F2D77A}
+.plan.gold .feats li.drink{color:#F2D77A}
+.plan.gold .btn-p{background:linear-gradient(100deg,#FFF1B8,#E3B94F 45%,#B8860B);color:#1a1204;box-shadow:0 10px 28px rgba(212,160,23,.35)}
+@media (prefers-reduced-motion:reduce){.plan.gold::before,.plan.gold h3,.plan.gold .price{animation:none}}
+
 /* titres de section */
 .sec-head .sec-kick{display:inline-flex;align-items:center;gap:12px}
 .sec-head .sec-kick::before,.sec-head .sec-kick::after,.carte .sec-kick::before{content:"";width:26px;height:2px;border-radius:2px;background:var(--grad);opacity:.85}
@@ -501,10 +544,15 @@ footer .wrap{position:relative;z-index:1}
 
 <section class="facts" aria-label="L'essentiel en un coup d'œil">
   <div class="wrap facts-grid">
-    <div class="fact"><b class="num" data-count="10000">10 000</b><small>FCFA</small><span>Abonnement dès, par semaine</span></div>
-    <div class="fact"><b class="num" data-count="5">5</b><small>repas</small><span>Du lundi au vendredi</span></div>
-    <div class="fact"><b class="num" data-count="1000">1 000</b><small>FCFA</small><span>Livraison, commande à l'unité</span></div>
-    <div class="fact"><b class="num" data-count="0">0</b><small>engagement</small><span>Tu peux commander sans t'abonner</span></div>
+    <div class="fact fact-rot" id="factRot" aria-label="Tarifs des formules par semaine">
+      <em class="rot-name">Basique</em>
+      <div class="rot-line"><b class="num" data-count="10000">10 000</b><small>FCFA</small></div>
+      <span class="rot-desc">par semaine · 5 repas · livraison incluse</span>
+      <div class="rot-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+    </div>
+    <div class="fact"><em class="rot-name">Chaque semaine</em><b class="num" data-count="5">5</b><small>repas</small><span>Du lundi au vendredi</span></div>
+    <div class="fact"><em class="rot-name">Livraison</em><b class="num" data-count="1000">1 000</b><small>FCFA</small><span>Livraison, commande à l'unité</span></div>
+    <div class="fact"><em class="rot-name">Liberté</em><b class="num" data-count="0">0</b><small>engagement</small><span>Tu peux commander sans t'abonner</span></div>
   </div>
 </section>
 
@@ -616,7 +664,9 @@ footer .wrap{position:relative;z-index:1}
         <a class="btn btn-p pick" data-plan="Intermédiaire" data-price="14 500 FCFA / semaine" href="#commander">Choisir Intermédiaire</a>
       </div>
 
-      <div class="plan">
+      <div class="plan gold">
+        <div class="gold-chip" aria-hidden="true"></div>
+        <div class="gold-kick">RAVITO · MEMBRE PREMIUM</div>
         <h3>Premium</h3>
         <div class="desc">Les plats les plus copieux, eau et jus compris.</div>
         <div class="price">23 000 <small>FCFA/sem</small></div>
@@ -1224,6 +1274,46 @@ if ("serviceWorker" in navigator && /^https?:$/.test(window.location.protocol)) 
     }, { threshold: 0.6 });
     nums.forEach(function(n){ io2.observe(n); });
   }
+
+
+  /* bandeau : les tarifs des formules défilent toutes les 3 s */
+  (function(){
+    var box = $("#factRot"); if (!box) return;
+    var data = [
+      ["Basique", 10000, "par semaine · 5 repas · livraison incluse"],
+      ["Intermédiaire", 14500, "par semaine · 5 repas · eau incluse · livraison incluse"],
+      ["Premium", 23000, "par semaine · 5 repas · eau + jus · tous les menus"]
+    ];
+    var nameEl = $(".rot-name", box), numEl = $(".num", box), descEl = $(".rot-desc", box), dots = $$(".rot-dots i", box);
+    var i = 0, timer = null, raf = 0;
+    function count(to){
+      if (reduce) { numEl.textContent = to.toLocaleString("fr-FR"); return; }
+      var t0 = null; cancelAnimationFrame(raf);
+      (function step(ts){
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / 900), e = 1 - Math.pow(1 - p, 3);
+        numEl.textContent = Math.round(to * e).toLocaleString("fr-FR");
+        if (p < 1) raf = requestAnimationFrame(step);
+      })(performance.now());
+    }
+    function show(n){
+      i = n; var d = data[n];
+      nameEl.textContent = d[0]; descEl.textContent = d[2];
+      dots.forEach(function(x, k){ x.classList.toggle("on", k === n); });
+      numEl.setAttribute("data-count", d[1]); count(d[1]);
+    }
+    function next(){
+      if (reduce) { show((i + 1) % data.length); return; }
+      box.classList.add("swap");
+      setTimeout(function(){ show((i + 1) % data.length); box.classList.remove("swap"); }, 350);
+    }
+    function start(){ if (!timer) timer = setInterval(next, 3000); }
+    function stop(){ clearInterval(timer); timer = null; }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function(en){ en[0].isIntersecting ? setTimeout(start, 1800) : stop(); }, { threshold: 0.4 }).observe(box);
+    } else { start(); }
+    document.addEventListener("visibilitychange", function(){ document.hidden ? stop() : null; });
+  })();
 
   /* reflet qui suit le curseur + légère inclinaison du logo (souris seulement) */
   if (window.matchMedia && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
