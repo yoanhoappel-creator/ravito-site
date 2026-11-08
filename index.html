@@ -381,43 +381,57 @@ header.scrolled .nav{height:56px}
 .fact-rot{overflow:hidden}
 .fact .rot-name{display:block;font-style:normal;font-size:11.5px;font-weight:800;letter-spacing:2.2px;text-transform:uppercase;color:var(--y);margin-bottom:10px;transition:opacity .35s,transform .35s}
 .rot-line{transition:opacity .35s,transform .35s}
-.rot-desc{min-height:2.7em;transition:opacity .35s,transform .35s}
+.rot-desc{margin-top:6px;transition:opacity .35s,transform .35s}
+.rot-perks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:12px;min-height:60px;align-content:flex-start;transition:opacity .25s}
+.rot-perks i{font-style:normal;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#E6E3DA;padding:5px 11px;border-radius:99px;
+  background:#17171d;border:1px solid #2b2b34;opacity:0;transform:translateY(8px) scale(.9);animation:perkIn .5s cubic-bezier(.2,.9,.3,1.4) forwards;animation-delay:calc(var(--k,0)*.14s + .25s)}
+.rot-perks i.hl{color:#1a1204;background:linear-gradient(100deg,#FFC400,#FF7A00);border-color:transparent;font-weight:800}
+.rot-perks i svg{width:13px;height:13px;flex:none}
+@keyframes perkIn{to{opacity:1;transform:none}}
+.fact-rot.swap .rot-perks{opacity:0}
+@media (prefers-reduced-motion:reduce){.rot-perks i{animation:none;opacity:1;transform:none}}
 .fact-rot.swap .rot-name,.fact-rot.swap .rot-line,.fact-rot.swap .rot-desc{opacity:0;transform:translateY(-10px)}
 .rot-dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
 .rot-dots i{width:6px;height:6px;border-radius:50%;background:#3a3a44;transition:all .3s}
 .rot-dots i.on{width:20px;border-radius:4px;background:var(--grad)}
-@media(max-width:760px){.rot-desc{min-height:4em}}
+@media(max-width:760px){.rot-perks{min-height:66px}}
 
-/* Premium : carte or */
-.plan.gold{border:1.5px solid transparent;overflow:hidden;
+/* Premium : carte or massif, texte noir */
+.plan.gold{border:1.5px solid transparent;overflow:hidden;color:#1a1204;
   background:
-   radial-gradient(120% 80% at 85% -10%,rgba(255,226,140,.20),rgba(255,226,140,0) 55%),
-   linear-gradient(135deg,#2e220a 0%,#17110a 40%,#271c08 64%,#0f0b05 100%) padding-box,
-  linear-gradient(135deg,#F9E7A0,#B8860B 28%,#FFF4C2 48%,#C9971C 68%,#F2D77A) border-box;
-  box-shadow:0 30px 80px rgba(212,160,23,.22),0 0 0 1px rgba(255,230,150,.06),inset 0 1px 0 rgba(255,244,194,.35),inset 0 -40px 80px rgba(0,0,0,.35)}
-.plan.gold:hover{border-color:transparent;box-shadow:0 36px 90px rgba(212,160,23,.34),inset 0 1px 0 rgba(255,244,194,.45)}
-.plan.gold::before{content:"";position:absolute;top:-60%;bottom:-60%;left:-60%;width:46%;pointer-events:none;z-index:2;
-  background:linear-gradient(100deg,rgba(255,244,194,0) 0%,rgba(255,244,194,.30) 50%,rgba(255,244,194,0) 100%);
-  transform:translateX(-120%) rotate(18deg);animation:goldsheen 5.5s ease-in-out infinite 1.2s}
-@keyframes goldsheen{0%{transform:translateX(-60%) rotate(18deg)}38%,100%{transform:translateX(520%) rotate(18deg)}}
-.plan.gold::after{background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(255,226,140,.22),rgba(255,226,140,0) 62%)!important;z-index:2}
+   repeating-linear-gradient(100deg,rgba(255,255,255,.07) 0 2px,rgba(0,0,0,0) 2px 7px) padding-box,
+   radial-gradient(90% 60% at 18% 0%,rgba(255,255,255,.55),rgba(255,255,255,0) 60%) padding-box,
+   linear-gradient(135deg,#F6DD7B 0%,#E2B947 20%,#FFF1B0 36%,#D9A91F 52%,#F4D970 68%,#C9971C 84%,#F0D170 100%) padding-box,
+   linear-gradient(135deg,#FFF8D6,#C9971C 40%,#FFF1B8 60%,#B8860B) border-box;
+  box-shadow:0 30px 80px rgba(212,160,23,.38),0 0 0 1px rgba(255,244,194,.25),inset 0 2px 0 rgba(255,255,255,.7),inset 0 -30px 60px rgba(150,100,0,.28)}
+.plan.gold:hover{border-color:transparent;box-shadow:0 38px 100px rgba(230,180,40,.5),inset 0 2px 0 rgba(255,255,255,.8),inset 0 -30px 60px rgba(150,100,0,.28)}
+.plan.gold::before{content:"";position:absolute;top:-60%;bottom:-60%;left:-60%;width:42%;pointer-events:none;z-index:2;
+  background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.62) 50%,rgba(255,255,255,0) 100%);
+  transform:translateX(-120%) rotate(18deg);animation:goldsheen 4.8s ease-in-out infinite .8s}
+@keyframes goldsheen{0%{transform:translateX(-60%) rotate(18deg)}38%,100%{transform:translateX(560%) rotate(18deg)}}
+.plan.gold::after{background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.55),rgba(255,255,255,0) 62%)!important;z-index:2}
 .plan.gold>*{position:relative;z-index:3}
 .plan.gold .gold-chip{position:absolute;right:24px;top:24px;width:50px;height:38px;border-radius:8px;z-index:3;
-  background:linear-gradient(135deg,#F9E7A0,#C9971C 45%,#FFF1B8 60%,#B8860B);box-shadow:inset 0 0 0 1px rgba(90,60,0,.55),0 2px 8px rgba(0,0,0,.4)}
-.plan.gold .gold-chip::before,.plan.gold .gold-chip::after{content:"";position:absolute;background:rgba(90,60,0,.55)}
-.plan.gold .gold-chip::before{left:0;right:0;top:50%;height:1px;box-shadow:0 -9px 0 rgba(90,60,0,.55),0 9px 0 rgba(90,60,0,.55)}
-.plan.gold .gold-chip::after{top:0;bottom:0;left:34%;width:1px;box-shadow:16px 0 0 rgba(90,60,0,.55)}
-.plan.gold .gold-kick{font-size:10px;font-weight:800;letter-spacing:2.6px;color:rgba(249,231,160,.7);margin:0 0 14px;padding-right:70px}
-.plan.gold h3,.plan.gold .price{background:linear-gradient(100deg,#FFF4C2 0%,#F2D77A 30%,#C9971C 55%,#FFF1B8 80%,#E6BC4B);
-  background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:goldtext 6s linear infinite}
-@keyframes goldtext{to{background-position:-200% 0}}
-.plan.gold .price small{-webkit-text-fill-color:#BFA567}
-.plan.gold .price-m{color:#C9B98E}.plan.gold .desc{color:#C9B98E}
-.plan.gold .feats li{color:#EDE3C6}
-.plan.gold .feats li::before{border-color:#F2D77A}
-.plan.gold .feats li.drink{color:#F2D77A}
-.plan.gold .btn-p{background:linear-gradient(100deg,#FFF1B8,#E3B94F 45%,#B8860B);color:#1a1204;box-shadow:0 10px 28px rgba(212,160,23,.35)}
-@media (prefers-reduced-motion:reduce){.plan.gold::before,.plan.gold h3,.plan.gold .price{animation:none}}
+  background:linear-gradient(135deg,#FFF3BF,#D9A91F 45%,#FFF1B8 60%,#C9971C);box-shadow:inset 0 0 0 1px rgba(90,60,0,.6),0 2px 6px rgba(90,60,0,.35)}
+.plan.gold .gold-chip::before,.plan.gold .gold-chip::after{content:"";position:absolute;background:rgba(90,60,0,.6)}
+.plan.gold .gold-chip::before{left:0;right:0;top:50%;height:1px;box-shadow:0 -9px 0 rgba(90,60,0,.6),0 9px 0 rgba(90,60,0,.6)}
+.plan.gold .gold-chip::after{top:0;bottom:0;left:34%;width:1px;box-shadow:16px 0 0 rgba(90,60,0,.6)}
+.plan.gold .gold-kick{font-size:10px;font-weight:800;letter-spacing:2.6px;color:rgba(26,18,4,.62);margin:0 0 14px;padding-right:70px}
+.plan.gold h3{color:#0e0900;font-size:27px;letter-spacing:.2px;text-shadow:0 1px 0 rgba(255,255,255,.7),0 -1px 0 rgba(120,80,0,.25)}
+.plan.gold .price{color:#0e0900;font-size:40px;text-shadow:0 1px 0 rgba(255,255,255,.7),0 -1px 0 rgba(120,80,0,.25)}
+.plan.gold .price small{color:#2a1c02;opacity:1;font-weight:700;font-size:14px}
+.plan.gold .price-m,.plan.gold .desc{color:#241700;font-weight:600}
+.plan.gold .gold-kick{color:rgba(14,9,0,.78)}
+.plan.gold .feats li{color:#0e0900;font-weight:700;font-size:14.5px;text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.plan.gold .feats li::before{background:#0e0900}
+.plan.gold .feats li::after{border-color:#F6DD7B}
+.plan.gold .feats li.drink{color:#0e0900;font-weight:900}
+.plan.gold .feats li.drink::before{box-shadow:0 0 0 3px rgba(14,9,0,.18)}
+.plan.gold .btn-p{background:linear-gradient(180deg,#2a2112,#0e0a04);color:#F6DD7B;box-shadow:0 10px 26px rgba(90,60,0,.45),inset 0 1px 0 rgba(255,230,150,.3)}
+@media (prefers-reduced-motion:reduce){.plan.gold::before{animation:none}}
+
+/* le O de RAVITO en orange */
+.brand b i{color:#FF7A00!important}
 
 /* titres de section */
 .sec-head .sec-kick{display:inline-flex;align-items:center;gap:12px}
@@ -547,7 +561,8 @@ footer .wrap{position:relative;z-index:1}
     <div class="fact fact-rot" id="factRot" aria-label="Tarifs des formules par semaine">
       <em class="rot-name">Basique</em>
       <div class="rot-line"><b class="num" data-count="10000">10 000</b><small>FCFA</small></div>
-      <span class="rot-desc">par semaine · 5 repas · livraison incluse</span>
+      <span class="rot-desc">par semaine</span>
+      <div class="rot-perks"><i>5 repas</i><i>Livraison incluse</i></div>
       <div class="rot-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
     </div>
     <div class="fact"><em class="rot-name">Chaque semaine</em><b class="num" data-count="5">5</b><small>repas</small><span>Du lundi au vendredi</span></div>
@@ -1279,12 +1294,14 @@ if ("serviceWorker" in navigator && /^https?:$/.test(window.location.protocol)) 
   /* bandeau : les tarifs des formules défilent toutes les 3 s */
   (function(){
     var box = $("#factRot"); if (!box) return;
+    var WATER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/></svg>';
+    var JUICE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12l-1.5 16h-9z"/><path d="M7 10h10"/><path d="M13 4l2-2"/></svg>';
     var data = [
-      ["Basique", 10000, "par semaine · 5 repas · livraison incluse"],
-      ["Intermédiaire", 14500, "par semaine · 5 repas · eau incluse · livraison incluse"],
-      ["Premium", 23000, "par semaine · 5 repas · eau + jus · tous les menus"]
+      ["Basique", 10000, [["5 repas"], ["Livraison incluse"], ["Plats simples et copieux"]]],
+      ["Intermédiaire", 14500, [["5 repas"], ["Bouteille d'eau incluse", 1, WATER], ["Livraison incluse"], ["Menus variés"]]],
+      ["Premium", 23000, [["5 repas"], ["Bouteille d'eau", 1, WATER], ["Jus inclus", 1, JUICE], ["Livraison incluse"], ["Tous les menus"]]]
     ];
-    var nameEl = $(".rot-name", box), numEl = $(".num", box), descEl = $(".rot-desc", box), dots = $$(".rot-dots i", box);
+    var nameEl = $(".rot-name", box), numEl = $(".num", box), perksEl = $(".rot-perks", box), dots = $$(".rot-dots i", box);
     var i = 0, timer = null, raf = 0;
     function count(to){
       if (reduce) { numEl.textContent = to.toLocaleString("fr-FR"); return; }
@@ -1298,7 +1315,8 @@ if ("serviceWorker" in navigator && /^https?:$/.test(window.location.protocol)) 
     }
     function show(n){
       i = n; var d = data[n];
-      nameEl.textContent = d[0]; descEl.textContent = d[2];
+      nameEl.textContent = d[0];
+      perksEl.innerHTML = d[2].map(function(p, k){ return '<i class="' + (p[1] ? "hl" : "") + '" style="--k:' + k + '">' + (p[2] || "") + p[0] + '</i>'; }).join("");
       dots.forEach(function(x, k){ x.classList.toggle("on", k === n); });
       numEl.setAttribute("data-count", d[1]); count(d[1]);
     }
