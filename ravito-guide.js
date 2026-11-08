@@ -109,6 +109,6 @@
   document.addEventListener("keydown", function (e) { if (active && e.key === "Escape") finish(); });
 
   window.RavitoGuide = { restart: function () { clearDone(); window.scrollTo(0, 0); setTimeout(start, 80); } };
-  function boot() { if (!isDone()) setTimeout(function () { if (!isDone()) start(); }, 1800); }   // laisse le temps à l'assistant d'apparaître
+  function boot() { if (!isDone()) setTimeout(function () { if (!isDone()) start(); }, 4200); }   // laisse d’abord voir la page, puis lance le guide
   if (document.readyState === "complete") boot(); else window.addEventListener("load", boot);
 })();
