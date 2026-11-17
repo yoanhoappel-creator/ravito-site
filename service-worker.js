@@ -1,4 +1,4 @@
-const CACHE = "ravito-public-shell-v7";
+const CACHE = "ravito-public-shell-v8";
 const base = self.registration.scope;
 const shell = ["./", "./index.html", "./manifest.webmanifest", "./ravito-assistant.js", "./ravito-guide.js", "./qr-ravito.png", "./ravito-public-192.png", "./ravito-public-512.png"];
 self.addEventListener("install", (event) => event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(shell.map((item) => new URL(item, base).href))).then(() => self.skipWaiting())));
@@ -7,6 +7,7 @@ self.addEventListener("fetch", (event) => {
   const request = event.request;
   const url = new URL(request.url);
   if (request.method !== "GET" || url.origin !== self.location.origin) return;
+  if (url.pathname.startsWith(new URL("./app/", base).pathname)) return;   // l'application client a son propre service worker : on ne touche pas à ses pages
   if (request.mode === "navigate") {
     event.respondWith(fetch(request).then((response) => { if (response.ok) caches.open(CACHE).then((cache) => cache.put(new URL("./index.html", base).href, response.clone())); return response; }).catch(async () => (await caches.match(request)) || (await caches.match(new URL("./index.html", base).href)) || Response.error()));
     return;

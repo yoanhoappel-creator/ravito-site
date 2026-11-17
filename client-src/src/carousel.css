@@ -1,0 +1,26 @@
+.rv-carousel{position:relative}
+.rv-car-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 2px 6px;overscroll-behavior-x:contain}
+.rv-car-track::-webkit-scrollbar{display:none}
+.rv-car-slide{flex:0 0 min(78%,270px);scroll-snap-align:start;min-width:0}
+.rv-car-btn{position:absolute;top:calc(50% - 30px);z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:rgba(23,23,20,.82);color:#fff;font:700 24px/1 'DM Sans',Arial,sans-serif;cursor:pointer;display:none;align-items:center;justify-content:center;padding:0 0 3px}
+.rv-car-btn.prev{left:-8px}.rv-car-btn.next{right:-8px}
+@media(hover:hover) and (min-width:700px){.rv-car-btn{display:flex}}
+.rv-car-dots{display:flex;justify-content:center;gap:7px;margin-top:8px}
+.rv-car-dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:#cfcbbf;cursor:pointer}
+.rv-car-dots button.on{background:#171714;width:20px;border-radius:99px}
+@media(min-width:700px){.rv-car-slide{flex-basis:calc((100% - 28px)/3)}}
+@media(min-width:1100px){.rv-car-slide{flex-basis:calc((100% - 42px)/4)}}
+.gallery-section{padding:56px 0 8px}
+.gallery-section .section-heading{margin-bottom:18px}
+.gallery-note{margin:2px 0 0;font:500 12px 'DM Sans',Arial,sans-serif;color:#827f75}
+.gallery-group{margin:26px 0 0}
+.gallery-group h3{margin:0 0 10px;font:800 15px 'DM Sans',Arial,sans-serif;color:#171714}
+.gallery-card{margin:0;border-radius:16px;overflow:hidden;background:#fff;border:1px solid #e5e2d8;height:100%}
+.gallery-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#ece8dc}
+.gallery-card figcaption{padding:11px 13px 13px}
+.gallery-card strong{display:block;font:800 13.5px 'DM Sans',Arial,sans-serif;color:#171714}
+.gallery-card span{display:block;margin-top:4px;font:400 12px/1.45 'DM Sans',Arial,sans-serif;color:#66675d}
+.rv-dark .rv-car-dots button{background:#3a3a42}.rv-dark .rv-car-dots button.on{background:#ffc400}
+.rv-dark .rv-car-btn{background:rgba(255,196,0,.92);color:#000}
+.rv-dark .rv-car-slide{flex-basis:128px}
+@media(min-width:700px){.rv-dark .rv-car-slide{flex-basis:150px}}

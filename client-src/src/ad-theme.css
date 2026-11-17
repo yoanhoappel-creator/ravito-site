@@ -1,0 +1,378 @@
+/* Police Inter hébergée par RAVITO (dossier public/fonts, licence SIL OFL) : le serveur n'autorise que son propre domaine (CSP), donc aucune police externe. */
+@font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url("/fonts/inter-Regular.woff") format("woff")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url("/fonts/inter-Medium.woff") format("woff")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:600;font-display:swap;src:url("/fonts/inter-SemiBold.woff") format("woff")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:700;font-display:swap;src:url("/fonts/inter-Bold.woff") format("woff")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:800;font-display:swap;src:url("/fonts/inter-ExtraBold.woff") format("woff")}
+@font-face{font-family:"Inter";font-style:normal;font-weight:900;font-display:swap;src:url("/fonts/inter-Black.woff") format("woff")}
+
+/* ============================================================================
+   Thème « pub RAVITO » pour toute la vitrine client : noir profond, dégradé jaune-orange,
+   cartes photo arrondies, boutons lumineux. Chargé après client.css : il ne change que l'apparence,
+   jamais le fonctionnement (mêmes classes, mêmes boutons).
+   ========================================================================== */
+:root{--rv-bg:#08080A;--rv-card:#131318;--rv-card2:#18181f;--rv-line:#26262E;--rv-line2:#34343e;--rv-ink:#fff;--rv-muted:#A8A49B;--rv-soft:#C9C5BC;
+  --rv-y:#FFC400;--rv-o:#FF7A00;--rv-grad:linear-gradient(100deg,#FFC400 0%,#FF7A00 100%);--rv-glow:0 10px 30px rgba(255,150,0,.35);
+  --rv-font:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",system-ui,sans-serif;
+  font-family:var(--rv-font);color:var(--rv-ink);background:var(--rv-bg);color-scheme:dark}
+body{background:var(--rv-bg);font-family:var(--rv-font)}
+.ravito-public{--ink:#fff;--muted:var(--rv-muted);--line:var(--rv-line);--accent:var(--rv-y);--paper:var(--rv-bg);--white:var(--rv-card);background:var(--rv-bg);color:var(--rv-ink);font-family:var(--rv-font);position:relative}
+.ravito-public button,.ravito-public input,.ravito-public textarea,.ravito-public select,.ravito-public .public-brand,.ravito-public h1,.ravito-public h2,.ravito-public h3,.ravito-public h4{font-family:var(--rv-font)}
+.ravito-public ::selection{background:var(--rv-o);color:#000}
+
+/* lueurs d'ambiance derrière toute la page */
+.ravito-public::before{content:"";position:fixed;left:-260px;top:38vh;width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(255,150,0,.20),rgba(255,150,0,0) 68%);pointer-events:none;z-index:0}
+.ravito-public>main,.ravito-public>footer,.ravito-public>.staff-entry-foot{position:relative;z-index:1}
+
+/* ---------------- en-tête ---------------- */
+.public-header{background:rgba(8,8,10,.82);border-bottom:1px solid var(--rv-line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);position:sticky}
+.public-brand{color:#fff;font-weight:900;letter-spacing:-.5px}
+.brand-symbol{background:var(--rv-grad);color:#000;border-radius:12px;font-weight:900;box-shadow:0 0 22px rgba(255,140,0,.4)}
+.brand-dot{color:var(--rv-o)}
+.header-location{color:var(--rv-muted)}.header-location svg{color:var(--rv-y)}
+.cart-trigger{background:var(--rv-card);border:1.5px solid var(--rv-line2);color:#fff;font-weight:800;transition:border-color .2s,box-shadow .2s}
+.cart-trigger:hover{border-color:var(--rv-o);box-shadow:0 0 22px rgba(255,122,0,.25)}
+.cart-trigger b{background:var(--rv-grad);color:#000;font-weight:900}
+.sub-trigger{background:var(--rv-card);border:1.5px solid var(--rv-line2);color:#fff}.sub-trigger.on{background:rgba(255,196,0,.1);border-color:var(--rv-o)}
+
+/* ---------------- bannière ---------------- */
+.public-hero{background:var(--rv-bg);overflow:hidden}
+.public-hero::after{content:"";position:absolute;right:-70px;top:-30px;width:130px;height:104%;background:var(--rv-grad);transform:skewX(-18deg);border-radius:4px;z-index:1;pointer-events:none;opacity:.95}
+.public-hero .hero-copy::before{content:"";position:absolute;left:-200px;top:-80px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,150,0,.22),rgba(255,150,0,0) 68%);z-index:-1;pointer-events:none}
+.eyebrow{color:var(--rv-muted);font-weight:800;letter-spacing:2px}
+.dark-eyebrow{color:var(--rv-y)}
+.live-dot{background:var(--rv-y);box-shadow:0 0 0 4px rgba(255,196,0,.22)}
+.hero-copy h1{font-weight:900;letter-spacing:-2.5px;line-height:.98}
+.hero-copy h1 span{background:var(--rv-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-copy>p{color:var(--rv-soft)}
+.hero-cta,.partner-strip>a{background:var(--rv-grad);color:#000;font-weight:900;font-size:14px;padding:16px 24px;box-shadow:var(--rv-glow);transition:transform .15s,box-shadow .2s}
+.hero-cta:hover,.partner-strip>a:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(255,150,0,.5)}
+.hero-note{color:var(--rv-muted)}
+.hero-tastes img{border-color:var(--rv-bg)}.hero-tastes span{color:var(--rv-muted)}
+.hero-caption{color:var(--rv-soft)}
+.hero-dots button.on{background:var(--rv-y)}
+
+/* ---------------- avantages ---------------- */
+.benefit-row{background:transparent;border-bottom:0;gap:14px;padding-top:26px;padding-bottom:6px}
+.benefit-row>div{background:var(--rv-card);border:1.5px solid var(--rv-line);border-radius:22px;padding:16px 16px;align-items:center}
+.benefit-row>div>span{background:var(--rv-grad);color:#000;font-weight:900}
+.benefit-row strong{color:#fff;font-weight:800;font-size:13px}.benefit-row small{color:var(--rv-muted)}
+
+/* ---------------- sélection de plats ---------------- */
+.menu-section{position:relative}
+.section-heading h2,.partner-strip h2{font-weight:900;letter-spacing:-1.4px;color:#fff}
+.search-box{background:var(--rv-card);border:1.5px solid var(--rv-line2);color:var(--rv-muted);border-radius:99px}
+.search-box:focus-within{border-color:var(--rv-o);box-shadow:0 0 0 3px rgba(255,122,0,.18)}
+.search-box input{color:#fff}.search-box input::placeholder{color:#7d7a72}
+.filter-chip{background:var(--rv-card);border:1.5px solid var(--rv-line2);color:#fff;font-weight:800;padding:10px 16px;transition:border-color .15s}
+.filter-chip:hover{border-color:var(--rv-o)}
+.filter-chip.active{background:var(--rv-grad);color:#000;border-color:transparent;box-shadow:0 6px 20px rgba(255,150,0,.3)}
+.tier-note{background:rgba(255,196,0,.08);border:1.5px solid rgba(255,196,0,.35);color:var(--rv-soft)}
+.tier-note b{color:var(--rv-y)}
+.prefill-banner{background:rgba(255,196,0,.08);border:1.5px solid rgba(255,196,0,.35);color:var(--rv-soft)}.prefill-banner b{color:#fff}
+.tracking-banner{background:rgba(255,196,0,.1);color:var(--rv-soft);border-top:1px solid var(--rv-line);border-bottom:1px solid var(--rv-line)}
+.tracking-banner button{color:var(--rv-y)}
+
+/* carte de plat : grande photo arrondie, nom sur la photo, bouton lumineux */
+.dish-grid{gap:22px}
+.dish-card{background:var(--rv-card);border:1.5px solid var(--rv-line);border-radius:30px;box-shadow:0 14px 40px rgba(0,0,0,.35);transition:transform .25s ease,box-shadow .25s ease,border-color .25s}
+.dish-card:hover{transform:translateY(-5px);border-color:rgba(255,150,0,.55);box-shadow:0 22px 60px rgba(0,0,0,.5),0 0 44px rgba(255,122,0,.18)}
+.dish-image{height:250px;background:#1b1b22;border-radius:30px 30px 0 0}
+.dish-image>img{transition:transform .6s ease}
+.dish-card:hover .dish-image>img{transform:scale(1.06)}
+.dish-image::after{content:"";position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(180deg,rgba(8,8,10,0),rgba(8,8,10,.92));pointer-events:none}
+.dish-overlay{position:absolute;left:18px;right:18px;bottom:14px;z-index:2}
+.dish-overlay h3{margin:0;font-weight:900;font-size:23px;letter-spacing:-.6px;line-height:1.12;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.6);overflow-wrap:anywhere}
+.dish-placeholder{background:radial-gradient(circle at 40% 40%,#2a2a33,#18181f 60%);color:var(--rv-muted)}
+.dish-restaurant{z-index:2;top:14px;bottom:auto;left:14px;background:rgba(8,8,10,.72);border:1px solid rgba(255,255,255,.16);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:none;font-weight:800;font-size:11px}
+.dish-restaurant-rating{color:var(--rv-y)}
+.dish-busy{z-index:2;top:14px;left:auto;right:14px;background:var(--rv-o);color:#000}
+.dish-info{padding:16px 18px 18px}
+.dish-info p{color:var(--rv-muted);font-size:12.5px;line-height:1.55;min-height:0}
+.dish-buy{border-top:1px solid var(--rv-line);padding-top:14px}
+.dish-buy>strong{font-weight:900;font-size:17px;color:#fff;letter-spacing:-.3px}
+.add-button{width:46px;height:46px;background:var(--rv-grad);color:#000;box-shadow:var(--rv-glow);transition:transform .15s,box-shadow .2s}
+.add-button:hover{transform:scale(1.08);box-shadow:0 12px 34px rgba(255,150,0,.55)}
+.add-button:active{transform:scale(.94)}
+.quantity-control{gap:12px}
+.quantity-control button{background:var(--rv-card2);color:#fff;border:1.5px solid var(--rv-line2);width:34px;height:34px}
+.quantity-control button:last-child{background:var(--rv-grad);color:#000;border-color:transparent}
+.quantity-control b{font-weight:900;color:#fff;font-size:14px}
+.empty-menu,.loading-card{background:var(--rv-card);border:1.5px dashed var(--rv-line2);color:var(--rv-muted)}
+.empty-menu h3{color:#fff;font-weight:900}.empty-menu p{color:var(--rv-muted)}
+.empty-plate{background:rgba(255,196,0,.12)}
+.text-button{color:var(--rv-y)}
+.loader{border-color:var(--rv-line2);border-top-color:var(--rv-y)}
+.inline-message,.form-error{background:rgba(255,80,60,.1);border:1px solid rgba(255,90,70,.4);color:#ff9d8f}
+
+/* galerie façon carrousel Netflix */
+.gallery-section .section-heading{margin-bottom:6px}
+.gallery-note{color:var(--rv-muted)}
+.gallery-group{margin:30px 0 0}
+.gallery-group h3{font-weight:900;font-size:19px;letter-spacing:-.5px;color:#fff;margin:0 0 12px}
+.gallery-card{background:var(--rv-card);border:1.5px solid var(--rv-line);border-radius:22px;transition:transform .25s,border-color .25s,box-shadow .25s}
+.rv-car-slide:hover .gallery-card{transform:scale(1.045);border-color:var(--rv-o);box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 36px rgba(255,122,0,.22);position:relative;z-index:3}
+.gallery-card img{border-radius:0}
+.gallery-card figcaption strong{color:#fff;font-weight:900}.gallery-card figcaption span{color:var(--rv-muted)}
+.rv-car-btn{background:rgba(8,8,10,.85);border:1.5px solid var(--rv-line2);color:var(--rv-y)}
+.rv-car-btn:hover{border-color:var(--rv-o)}
+.rv-car-dots button{background:var(--rv-line2)}.rv-car-dots button.on{background:var(--rv-y)}
+
+/* bandeau partenaire et pied de page */
+.partner-strip{background:var(--rv-card);border-top:1.5px solid var(--rv-line);border-bottom:1.5px solid var(--rv-line);color:#fff}
+.public-footer{background:#050507;color:var(--rv-muted);border-top:1px solid var(--rv-line)}
+.public-footer>a:last-child{color:var(--rv-soft)}
+.public-footer .team-access{background:var(--rv-card);border:1.5px solid var(--rv-line2)}.public-footer .team-access:hover{background:var(--rv-o);color:#000}
+.staff-entry-bar{background:#050507;border-bottom:1px solid var(--rv-line)}.staff-entry-bar button,.staff-entry-foot button{background:var(--rv-grad);color:#000}
+.staff-entry-foot{background:#050507}
+
+/* barre panier sur téléphone */
+.mobile-cart-bar{background:rgba(8,8,10,.92);border-top:1.5px solid var(--rv-line2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.mobile-cart-bar b{color:var(--rv-y);font-weight:900}
+.cart-trigger,.sub-trigger{white-space:nowrap}
+@media(max-width:600px){
+  .public-hero::after{right:-46px;width:62px;opacity:.9}
+  .public-hero::before{opacity:.9}
+}
+@media(max-width:470px){.cart-trigger span:not(:empty):not(.sr){display:none}.cart-trigger{padding:10px 12px}.sub-trigger span{display:none}.sub-trigger{padding:10px 12px}}
+@media(max-width:600px){
+  .mobile-cart-bar{left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));border:1.5px solid var(--rv-o);border-radius:99px;padding:15px 22px;box-shadow:0 12px 40px rgba(255,122,0,.35)}
+  .dish-image{height:235px}
+  .benefit-row>div{border-radius:18px}
+  .dish-overlay h3{font-size:21px}
+}
+
+/* ---------------- panier et paiement (tiroir) ---------------- */
+.drawer-backdrop{background:rgba(3,3,5,.78);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.cart-drawer{background:#0D0D11;border-left:1.5px solid var(--rv-line);color:#fff;box-shadow:-20px 0 80px rgba(0,0,0,.6)}
+.drawer-head{border-bottom:1px solid var(--rv-line)}
+.drawer-head h2{font-weight:900;letter-spacing:-.8px;color:#fff}
+.icon-button{background:var(--rv-card);border:1.5px solid var(--rv-line2);color:#fff}
+.cart-from{color:var(--rv-muted)}.cart-from b{color:#fff}
+.cart-lines{border-top:1px solid var(--rv-line)}
+.cart-line{border-bottom:1px solid var(--rv-line)}
+.cart-line>div:first-child strong{color:#fff;font-weight:800;font-size:13.5px}.cart-line>div:first-child span,.cart-line>strong{color:var(--rv-muted)}
+.cart-line>strong{color:#fff;font-weight:800}
+.cart-totals{border-bottom:1px solid var(--rv-line)}.cart-totals>div{color:var(--rv-muted)}.cart-totals b{color:#fff}
+.cart-totals .grand-total{border-top:1px solid var(--rv-line);color:#fff}
+.cart-totals .grand-total b{background:var(--rv-grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900;font-size:19px}
+.checkout-form h3,.pay-form h3,.order-pay h4,.share-loc-title{color:#fff;font-weight:900}
+.checkout-form label,.pay-form label,.order-pay label{color:var(--rv-soft)}
+.optional{color:var(--rv-muted)}
+.checkout-form input,.checkout-form textarea,.pay-form label input,.order-pay label input{background:#08080A;border:1.5px solid var(--rv-line2);color:#fff;border-radius:14px;outline-color:var(--rv-o)}
+.checkout-form input:focus,.checkout-form textarea:focus,.pay-form label input:focus,.order-pay label input:focus{border-color:var(--rv-y);box-shadow:0 0 0 3px rgba(255,196,0,.15)}
+.checkout-form input::placeholder,.checkout-form textarea::placeholder{color:#6b6860}
+.privacy-note,.confirm-note{color:var(--rv-muted)}
+.checkout-button{background:var(--rv-grad);color:#000;font-weight:900;font-size:14px;padding:17px;box-shadow:var(--rv-glow);transition:transform .15s,box-shadow .2s}
+.checkout-button:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 14px 38px rgba(255,150,0,.5)}
+.busy-notice{background:rgba(255,150,0,.1);border:1.5px solid rgba(255,150,0,.4);color:var(--rv-soft)}
+.busy-notice button{background:var(--rv-card);border:1.5px solid var(--rv-line2);color:#fff}.busy-notice small{color:var(--rv-muted)}
+.drawer-empty>svg{color:var(--rv-y)}.drawer-empty p,.order-success p{color:var(--rv-muted)}
+.drawer-empty h3,.order-success h3{color:#fff;font-weight:900}
+.success-mark{background:var(--rv-grad);color:#000;box-shadow:0 0 50px rgba(255,150,0,.45)}
+.order-success p b{color:#fff}
+.order-reference{background:var(--rv-card);border:1.5px dashed var(--rv-line2)}.order-reference span{color:var(--rv-muted)}.order-reference strong{color:var(--rv-y)}
+.payment-note{background:rgba(255,196,0,.08);border:1px solid rgba(255,196,0,.3);color:var(--rv-soft)}
+.order-recap{background:var(--rv-card);border:1.5px solid var(--rv-line)}.order-recap>span{color:var(--rv-muted)}.order-recap>div{color:var(--rv-soft)}.order-recap .recap-total{border-top-color:var(--rv-line);color:#fff}
+.order-status{background:rgba(255,196,0,.08);border:1px solid rgba(255,196,0,.25)}.order-status span{color:var(--rv-muted)}.order-status b{color:var(--rv-y)}
+.order-time{color:var(--rv-soft)}.time-note{color:var(--rv-muted)}
+.order-steps li{color:#77756e}.order-steps i{background:var(--rv-card2);color:var(--rv-muted);border:1.5px solid var(--rv-line2)}
+.order-steps li.done i{background:var(--rv-grad);color:#000;border-color:transparent}.order-steps li.done{color:var(--rv-y)}
+.order-steps li.now i{background:var(--rv-grad);color:#000;box-shadow:0 0 0 5px rgba(255,150,0,.25);border-color:transparent}.order-steps li.now{color:#fff}
+.order-steps-stop{background:rgba(255,80,60,.12);color:#ff9d8f}
+.rate-box{background:var(--rv-card);border:1.5px solid var(--rv-line)}.rate-box>span,.rate-box p{color:var(--rv-soft)}
+.stars button{color:#3a3a44}.stars button.on,.stars-done{color:var(--rv-y)}
+.status-refresh{color:var(--rv-y)}
+
+/* paiement Mobile Money : tuiles blanches comme dans la pub */
+.order-pay{background:var(--rv-card);border:1.5px solid var(--rv-line);border-radius:22px}
+.op-btn{background:#fff;border:3px solid transparent;border-radius:20px;min-height:82px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.op-btn.on{border-color:var(--rv-y);box-shadow:0 0 0 4px rgba(255,196,0,.25),0 8px 24px rgba(0,0,0,.35)}
+.op-check{background:var(--rv-grad);color:#000}
+.order-pay.pay-wait p,.pay-wait p,.pay-done p{color:var(--rv-soft)}.order-pay.pay-wait small,.pay-wait small{color:var(--rv-muted)}
+.order-pay .spin,.pay-wait .spin{color:var(--rv-y)}
+.pay-wait h3,.pay-done h3,.order-pay.pay-wait h4{color:#fff}
+.order-paid{background:rgba(255,196,0,.1);border:1px solid rgba(255,196,0,.35);color:var(--rv-soft)}.order-paid svg{color:var(--rv-y)}
+.share-loc{background:rgba(255,196,0,.07);border:1.5px solid rgba(255,196,0,.4);border-radius:20px}.share-loc.done{background:rgba(255,196,0,.05);border-color:var(--rv-line2)}
+.share-loc p{color:var(--rv-soft)}
+.share-loc-btn{background:var(--rv-grad);color:#000;font-weight:900;box-shadow:var(--rv-glow)}
+.share-loc-ok{color:var(--rv-y)}
+
+/* abonnement */
+.sub-card{background:var(--rv-card);border:1.5px solid var(--rv-line)}
+.sub-line span,.sub-dates,.sub-help,.sub-push p{color:var(--rv-muted)}
+.sub-line em.ok{background:rgba(255,196,0,.14);color:var(--rv-y)}.sub-line em.ko{background:rgba(255,80,60,.14);color:#ff9d8f}
+.sub-push{border-top-color:var(--rv-line)}
+.sub-use{background:rgba(255,196,0,.08);border-color:rgba(255,196,0,.5);color:var(--rv-soft)}
+.sub-guide{background:var(--rv-card);border-color:var(--rv-line)}.sub-guide summary{color:#fff}.sub-guide ol{color:var(--rv-soft)}
+.pay-plans button,.pay-period button,.pay-ops button{background:var(--rv-card);border:1.5px solid var(--rv-line2);color:#fff}
+.pay-plans button.on,.pay-period button.on,.pay-ops button.on{background:rgba(255,196,0,.1);border-color:var(--rv-y);box-shadow:0 0 0 3px rgba(255,196,0,.18)}
+.pay-plans small,.pay-period small{color:var(--rv-muted)}.pay-hint{color:var(--rv-muted)}.pay-or{color:var(--rv-muted)}
+.sub-code{color:var(--rv-y)}
+
+/* QR et boutons génériques d'abonnement */
+.sub-qr canvas,.sub-qr svg,.sub-qr img{background:#fff;border-radius:14px;padding:8px}
+
+
+
+/* ============================================================================
+   Finitions : petits détails qui donnent le côté « wow » (aucun changement de fonctionnement)
+   ========================================================================== */
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;scroll-padding-top:84px}
+body{font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.ravito-public{scrollbar-color:#34343e #08080A;scrollbar-width:thin}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:#08080A}::-webkit-scrollbar-thumb{background:#2c2c35;border-radius:99px;border:2px solid #08080A}::-webkit-scrollbar-thumb:hover{background:var(--rv-o)}
+
+/* accessibilité clavier : anneau net aux couleurs du site */
+.ravito-public :focus{outline:none}
+.ravito-public :focus-visible{outline:2px solid var(--rv-y);outline-offset:3px;border-radius:inherit}
+
+/* en-tête : fine ligne lumineuse sous la barre */
+.public-header{box-shadow:0 1px 0 rgba(255,150,0,.10),0 12px 30px rgba(0,0,0,.35)}
+.public-header::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,150,0,.55),transparent);opacity:.7;pointer-events:none}
+.brand-symbol{transition:transform .3s cubic-bezier(.2,.9,.3,1.4)}
+.public-brand:hover .brand-symbol{transform:rotate(-8deg) scale(1.08)}
+
+/* bannière : entrée en douceur, image qui respire, bouton avec reflet */
+@keyframes rvUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes rvFade{from{opacity:0}to{opacity:1}}
+@keyframes rvShine{0%{transform:translateX(-130%) skewX(-20deg)}55%,100%{transform:translateX(330%) skewX(-20deg)}}
+@keyframes rvBreath{from{transform:scale(1)}to{transform:scale(1.06)}}
+@keyframes rvShimmer{from{background-position:-200% 0}to{background-position:200% 0}}
+@keyframes rvDrawer{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}
+@keyframes rvPop{0%{transform:scale(.7);opacity:0}70%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+.hero-copy>*{animation:rvUp .7s cubic-bezier(.2,.7,.2,1) both}
+.hero-copy>*:nth-child(1){animation-delay:.05s}.hero-copy>*:nth-child(2){animation-delay:.14s}.hero-copy>*:nth-child(3){animation-delay:.24s}.hero-copy>*:nth-child(4){animation-delay:.34s}.hero-copy>*:nth-child(5){animation-delay:.44s}.hero-copy>*:nth-child(6){animation-delay:.54s}
+.hero-photo img.on{animation:rvBreath 9s ease-in-out infinite alternate}
+.hero-cta{position:relative;overflow:hidden}
+.hero-cta::after{content:"";position:absolute;top:0;bottom:0;left:0;width:34%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:rvShine 4.2s ease-in-out 1.4s infinite;pointer-events:none}
+.hero-cta svg{transition:transform .2s}.hero-cta:hover svg{transform:translateX(4px)}
+.hero-caption{right:170px;bottom:16px;letter-spacing:3px;text-shadow:0 2px 12px #000}
+@media(max-width:600px){.hero-caption{right:14px;bottom:10px}}
+
+/* titres de section : petit trait lumineux devant le sur-titre */
+.dark-eyebrow{display:inline-flex;align-items:center;gap:10px}
+.dark-eyebrow::before{content:"";width:26px;height:3px;border-radius:3px;background:var(--rv-grad);box-shadow:0 0 14px rgba(255,150,0,.6)}
+
+/* avantages : légère élévation */
+.benefit-row>div{transition:transform .25s,border-color .25s,box-shadow .25s}
+.benefit-row>div:hover{transform:translateY(-3px);border-color:rgba(255,150,0,.5);box-shadow:0 16px 40px rgba(0,0,0,.45),0 0 34px rgba(255,122,0,.14)}
+.benefit-row>div>span{box-shadow:0 0 18px rgba(255,150,0,.45)}
+
+/* cartes de plats : fond qui brille pendant le chargement, apparition à l'écran, prix mis en valeur */
+.dish-image{background:linear-gradient(100deg,#17171d 30%,#24242d 50%,#17171d 70%);background-size:200% 100%;animation:rvShimmer 1.6s linear infinite}
+.dish-image>img{position:relative;z-index:0}
+.dish-card{will-change:transform}
+@supports (animation-timeline:view()){
+  .dish-card,.gallery-group,.benefit-row>div{animation:rvUp linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
+}
+.dish-buy>strong{background:var(--rv-grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:18px}
+.add-button{position:relative}
+.add-button::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(255,150,0,.45);opacity:0;transform:scale(.85);transition:opacity .25s,transform .25s}
+.add-button:hover::after{opacity:1;transform:scale(1.08)}
+.dish-restaurant{letter-spacing:.2px}
+.filter-chip{transition:border-color .15s,transform .15s,box-shadow .2s}.filter-chip:active{transform:scale(.96)}
+.filter-row{-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+@media(min-width:601px){.filter-row{-webkit-mask-image:none;mask-image:none}}
+
+/* galerie : légende plus lisible, flèches lumineuses */
+.gallery-card figcaption{background:linear-gradient(180deg,rgba(19,19,24,.4),var(--rv-card))}
+.rv-car-btn{box-shadow:0 6px 20px rgba(0,0,0,.55);transition:transform .15s,border-color .2s,box-shadow .2s}
+.rv-car-btn:hover{transform:scale(1.1);box-shadow:0 0 22px rgba(255,122,0,.4)}
+.rv-car-dots button{transition:width .25s,background .25s}.rv-car-dots button.on{width:22px;border-radius:99px}
+
+/* pied de page : filet dégradé */
+.public-footer{position:relative}
+.public-footer::before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,150,0,.5),transparent)}
+.partner-strip>a svg{transition:transform .2s}.partner-strip>a:hover svg{transform:translateX(4px)}
+
+/* assistant : bouton plus discret sur téléphone, il ne cache plus le bouton d'ajout */
+.assistant-fab{box-shadow:0 10px 30px rgba(0,0,0,.55),0 0 24px rgba(255,122,0,.18);transition:transform .15s,box-shadow .2s}
+.assistant-fab:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(0,0,0,.6),0 0 30px rgba(255,122,0,.35)}
+@media(max-width:600px){
+  .assistant-fab{width:46px;height:46px;padding:0;justify-content:center;right:14px;bottom:max(92px,calc(env(safe-area-inset-bottom) + 78px));opacity:.92}
+  .assistant-fab span{display:none}.assistant-fab b{font-size:19px}
+}
+
+/* tiroir panier : glisse en douceur, boutons tactiles */
+.cart-drawer{animation:rvDrawer .35s cubic-bezier(.2,.8,.2,1) both}
+.drawer-backdrop{animation:rvFade .25s both}
+.success-mark{animation:rvPop .55s cubic-bezier(.2,.9,.3,1.3) both}
+.mobile-cart-bar{animation:rvUp .4s cubic-bezier(.2,.8,.2,1) both}
+button:not(:disabled){-webkit-user-select:none;user-select:none}
+.checkout-button:active,.share-loc-btn:active,.hero-cta:active,.op-btn:active{transform:scale(.97)}
+.op-btn{transition:transform .15s,border-color .2s,box-shadow .2s}
+.checkout-button:disabled{filter:saturate(.7)}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+
+/* ============================================================================
+   Deuxième passe « luxe » : vrai logo RAVITO, en-tête vivant, squelettes de chargement,
+   reflet qui suit le curseur, pied de page soigné. Décoratif uniquement.
+   ========================================================================== */
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* vrai logo à la place de l'ancien « R » */
+.brand-logo{width:40px;height:40px;border-radius:11px;object-fit:cover;display:block;background:#0b0b0e;
+  box-shadow:0 0 0 1px rgba(255,196,0,.28),0 6px 22px rgba(255,122,0,.38);transition:transform .35s cubic-bezier(.2,.9,.3,1.4),box-shadow .25s,width .25s,height .25s}
+.public-brand:hover .brand-logo{transform:rotate(-6deg) scale(1.07);box-shadow:0 0 0 1px rgba(255,196,0,.5),0 8px 28px rgba(255,122,0,.55)}
+.public-brand{gap:11px;font-size:20px;letter-spacing:-.9px}
+@media(max-width:600px){.brand-logo{width:34px;height:34px;border-radius:10px}.public-brand{font-size:18px}}
+
+/* en-tête : se resserre quand on défile + barre de progression dégradée */
+.public-header{transition:height .28s ease,background .28s ease,box-shadow .28s ease}
+.public-header::before{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--rv-grad);transform-origin:0 50%;transform:scaleX(var(--rv-progress,0));z-index:2;box-shadow:0 0 12px rgba(255,150,0,.7);pointer-events:none}
+.public-header.is-scrolled{height:62px;background:rgba(8,8,10,.92);box-shadow:0 1px 0 rgba(255,150,0,.16),0 14px 34px rgba(0,0,0,.5)}
+.public-header.is-scrolled .brand-logo{width:34px;height:34px}
+@media(max-width:600px){.public-header.is-scrolled{height:56px}.public-header.is-scrolled .brand-logo{width:30px;height:30px}}
+
+/* bannière : léger grain photographique + titre plus net */
+.public-hero::before{content:"";position:absolute;inset:0;opacity:.05;pointer-events:none;z-index:1;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.hero-copy h1{text-shadow:0 8px 40px rgba(0,0,0,.45)}
+.hero-copy h1 span{background-size:200% 100%;animation:rvGrad 7s ease-in-out infinite alternate}
+@keyframes rvGrad{from{background-position:0 0}to{background-position:100% 0}}
+
+/* plats : prix en deux temps, projecteur au survol, squelettes pendant le chargement */
+.dish-buy>strong small{font-size:11px;font-weight:800;letter-spacing:1.2px;color:var(--rv-muted);-webkit-text-fill-color:var(--rv-muted)}
+.dish-card{position:relative;isolation:isolate}
+.dish-card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:4;opacity:0;transition:opacity .3s;
+  background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(255,170,0,.13),rgba(255,170,0,0) 62%)}
+@media(hover:hover){.dish-card:hover::after{opacity:1}}
+.dish-card.skeleton{pointer-events:none;border-color:var(--rv-line)}
+.dish-card.skeleton .dish-info{display:grid;gap:12px;padding:20px 18px 24px}
+.dish-card.skeleton .dish-info i{display:block;height:12px;border-radius:99px;background:linear-gradient(100deg,#1b1b22 30%,#2a2a34 50%,#1b1b22 70%);background-size:200% 100%;animation:rvShimmer 1.5s linear infinite}
+.dish-card.skeleton .dish-info i:nth-child(1){width:86%}.dish-card.skeleton .dish-info i:nth-child(2){width:62%}.dish-card.skeleton .dish-info i:nth-child(3){width:34%;height:16px;margin-top:8px}
+.dish-card.skeleton::after{display:none}
+
+/* titres de section : filet de chaque côté sur l'accroche */
+.section-heading h2{background:linear-gradient(180deg,#fff 55%,#cfcbc2);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* pied de page soigné */
+.ravito-public .public-footer{display:grid;grid-template-columns:1.2fr 1fr auto;grid-template-areas:"brand pay links" "legal legal legal";align-items:center;gap:26px 40px;padding:44px max(5vw,24px) 26px;min-height:0;background:linear-gradient(180deg,#07070a,#040405);overflow:hidden}
+.ravito-public .public-footer::after{content:"RAVITO";position:absolute;right:-1%;bottom:-.28em;font:900 clamp(90px,17vw,210px)/1 var(--rv-font);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px rgba(255,150,0,.10);pointer-events:none;user-select:none;z-index:0}
+.public-footer>*{position:relative;z-index:1}
+.footer-brand{grid-area:brand}.footer-brand p{margin:10px 0 0;font-size:13px;color:var(--rv-muted)}
+.footer-pay{grid-area:pay;display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-pay small{width:100%;font-size:10.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--rv-y)}
+.footer-pay .pay-tile{height:42px;min-width:64px;padding:0 12px;border-radius:12px;background:#fff;display:grid;place-items:center;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.4)}
+.footer-pay .pay-tile img{height:26px;width:auto;max-width:100%;object-fit:contain}
+.footer-links{grid-area:links;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.footer-links a{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--rv-soft);text-decoration:none;transition:color .2s,gap .2s}
+.footer-links a:hover{color:var(--rv-y);gap:11px}
+.footer-links .team-access{margin-top:0}
+.footer-legal{grid-area:legal;padding-top:18px;border-top:1px solid var(--rv-line);font-size:11.5px;color:#77746c}
+@media(max-width:760px){
+  .ravito-public .public-footer{grid-template-columns:1fr;grid-template-areas:"brand" "pay" "links" "legal";gap:22px;padding:36px 20px 96px}
+  .footer-links{align-items:flex-start}
+}
+.hero-copy h1 span{text-shadow:none}
+.footer-pay .pay-tile{height:46px}.footer-pay .pay-moov{padding:0;width:46px;min-width:46px}.footer-pay .pay-moov img{height:46px;width:46px;max-width:none}
+.ravito-public .public-footer::after{right:2%;font-size:clamp(80px,13vw,170px);-webkit-text-stroke:1px rgba(255,150,0,.07)}
+/* sur téléphone, l'assistant passe à gauche : il ne recouvre plus le bouton « + » des plats */
+@media(max-width:600px){.assistant-fab{right:auto;left:14px}}
+.brand-o{color:#FF7A00}
