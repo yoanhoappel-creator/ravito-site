@@ -157,7 +157,16 @@ img,video,svg{max-width:100%}
 .share-loc-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:13px;background:#1d1c17;color:#fff;font:700 13.5px 'DM Sans',sans-serif;cursor:pointer}.share-loc-btn:disabled{opacity:.7}
 .share-loc-ok{display:flex;gap:8px;align-items:center;color:#14623a;font-size:13px}.share-loc-ok svg{flex:none}.share-loc-actions{display:flex;gap:16px}.share-loc .spin{animation:spin .9s linear infinite}
 
-.waking-note{display:flex;align-items:center;gap:10px;margin:0 0 14px;padding:12px 14px;border-radius:14px;border:1px solid #26262E;background:#131318;color:#C9C5BC;font-size:.95rem}
-.waking-dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(100deg,#FFC400,#FF7A00);animation:wakingPulse 1.2s ease-in-out infinite}
-@keyframes wakingPulse{0%,100%{transform:scale(.7);opacity:.6}50%{transform:scale(1.15);opacity:1}}
-@media (prefers-reduced-motion:reduce){.waking-dot{animation:none}}
+.waking-splash{display:grid;justify-items:center;gap:14px;margin:0 0 18px;padding:26px 18px 22px;border-radius:20px;border:1px solid #26262E;background:radial-gradient(120% 90% at 50% 0%,rgba(255,150,0,.16),transparent 70%),#131318;text-align:center}
+.waking-logo{position:relative;width:84px;height:84px;display:grid;place-items:center}
+.waking-logo img{position:relative;width:84px;height:84px;border-radius:20px;animation:wakingBeat 1.4s ease-in-out infinite;box-shadow:0 0 28px rgba(255,140,0,.35)}
+.waking-ring{position:absolute;inset:-6px;border-radius:26px;border:2px solid rgba(255,170,0,.55);animation:wakingRing 2.4s ease-out infinite}
+.waking-ring-2{animation-delay:1.2s}
+.waking-msg{margin:0;color:#F4F1EA;font-weight:700;font-size:1.02rem;animation:wakingMsg .5s ease both}
+.waking-bar{width:min(260px,80%);height:6px;border-radius:99px;background:#26262E;overflow:hidden}
+.waking-bar span{display:block;width:40%;height:100%;border-radius:99px;background:linear-gradient(100deg,#FFC400,#FF7A00);animation:wakingBar 1.5s ease-in-out infinite}
+@keyframes wakingBeat{0%,100%{transform:scale(.96)}50%{transform:scale(1.05)}}
+@keyframes wakingRing{0%{transform:scale(.9);opacity:.8}100%{transform:scale(1.55);opacity:0}}
+@keyframes wakingMsg{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes wakingBar{0%{transform:translateX(-110%)}100%{transform:translateX(280%)}}
+@media (prefers-reduced-motion:reduce){.waking-logo img,.waking-ring,.waking-msg,.waking-bar span{animation:none}.waking-ring{display:none}.waking-bar span{width:60%}}

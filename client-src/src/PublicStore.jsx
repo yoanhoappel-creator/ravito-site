@@ -27,6 +27,23 @@ async function api(path, options = {}) {
   return data;
 }
 
+// Animation du logo pendant le réveil du serveur (offre gratuite) : le message change au fil de l'attente.
+const WAKING_MESSAGES = ["On allume les fourneaux…", "On prépare la carte du jour…", "Les livreurs enfilent leur casque…", "Encore quelques secondes, ça arrive !"];
+function WakingSplash() {
+  const [step, setStep] = useState(0);
+  useEffect(() => {
+    const timers = [setTimeout(() => setStep(1), 8000), setTimeout(() => setStep(2), 20000), setTimeout(() => setStep(3), 36000)];
+    return () => timers.forEach(clearTimeout);
+  }, []);
+  return (
+    <div className="waking-splash" role="status" aria-live="polite">
+      <div className="waking-logo"><span className="waking-ring" aria-hidden="true" /><span className="waking-ring waking-ring-2" aria-hidden="true" /><img src={asset("/icons/ravito-public-192.png")} alt="" width="84" height="84" /></div>
+      <p className="waking-msg" key={step}>{WAKING_MESSAGES[step]}</p>
+      <div className="waking-bar" aria-hidden="true"><span /></div>
+    </div>
+  );
+}
+
 // Les photos de plats viennent du serveur : adresse complète quand l'application est hébergée à part.
 const withApiImages = (data) => (data && Array.isArray(data.restaurants) ? { ...data, restaurants: data.restaurants.map((r) => ({ ...r, menu: (r.menu || []).map((item) => (item.image ? { ...item, image: apiUrl(item.image) } : item)) })) } : data);
 
@@ -409,7 +426,7 @@ export default function PublicStore({ staffEntry } = {}) {
           </div>
 
           {covered && <p className="tier-note">✨ Tu vois le menu de ta formule <b>{tierName}</b>. Ton abonnement couvre un repas par commande.</p>}
-          {waking && !catalog && !problem && <p className="waking-note" role="status"><span className="waking-dot" aria-hidden="true" />On réveille la cuisine… la carte du jour arrive dans quelques secondes.</p>}
+          {waking && !catalog && !problem && <WakingSplash />}
           {!catalog && !problem && <div className="dish-grid dish-skeletons" role="status" aria-live="polite"><span className="sr-only">On prépare la carte du jour…</span>{[0, 1, 2].map((i) => <div className="dish-card skeleton" key={i} aria-hidden="true"><div className="dish-image" /><div className="dish-info"><i /><i /><i /></div></div>)}</div>}
           {problem && <div className="inline-message" role="status">{problem}<button onClick={() => setProblem("")} aria-label="Fermer"><X size={16} /></button></div>}
           {catalog && visibleDishes.length > 0 && <div className="dish-grid" onPointerMove={spotlight}>{visibleDishes.map((dish, dishIndex) => {
